@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+
+.container {
+    @apply max-w-[1300px] mx-auto 
+}
+
+.big-container {
+    @apply max-w-[1920px] mx-auto 
+}
