@@ -32,7 +32,114 @@ import apartment from "../img/apartment.png"
 import home5 from "../img/Vector (3).png"
 import office from "../img/business-and-trade.png"
 import home_infinite from "../img/photo_2025-09-04_23-02-37.jpg"
+import hacker from "../img/Ellipse 11.png"
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+
 export default function Header() {
+
+    const apartments = [
+        {
+            title: "New Apartment Nice View",
+            address: "Quincy St, Brooklyn, NY, USA",
+            image: image,
+            beds: "4 Beds",
+            baths: "5 Bath",
+            garage: "1 Garage",
+            area: "1200 Sq Ft",
+            oldPrice: "$2,800/mo",
+            newPrice: "$7,500/mo"
+        },
+        {
+            title: "New Apartment Nice View",
+            address: "Quincy St, Brooklyn, NY, USA",
+            image: images,
+            beds: "4 Beds",
+            baths: "5 Bath",
+            garage: "1 Garage",
+            area: "1200 Sq Ft",
+            oldPrice: "$2,800/mo",
+            newPrice: "$7,500/mo"
+        },
+        {
+            title: "New Apartment Nice View",
+            address: "Quincy St, Brooklyn, NY, USA",
+            image: imagess,
+            beds: "4 Beds",
+            baths: "5 Bath",
+            garage: "1 Garage",
+            area: "1200 Sq Ft",
+            oldPrice: "$2,800/mo",
+            newPrice: "$7,500/mo"
+        },
+        {
+            title: "New Apartment Nice View",
+            address: "Quincy St, Brooklyn, NY, USA",
+            image: images,
+            beds: "4 Beds",
+            baths: "5 Bath",
+            garage: "1 Garage",
+            area: "1200 Sq Ft",
+            oldPrice: "$2,800/mo",
+            newPrice: "$7,500/mo"
+        },
+
+        {
+            title: "New Apartment Nice View",
+            address: "Quincy St, Brooklyn, NY, USA",
+            image: imagess,
+            beds: "4 Beds",
+            baths: "5 Bath",
+            garage: "1 Garage",
+            area: "1200 Sq Ft",
+            oldPrice: "$2,800/mo",
+            newPrice: "$7,500/mo"
+        }
+    ]
+    const category = [
+        {
+            name: "Home",
+            img: home3,
+            bg: build
+        },
+        {
+            name: "Apartment",
+            img: apartment,
+            bg: build2
+        },
+        {
+            name: "Office",
+            img: office,
+            bg: build3
+        },
+        {
+            name: "Home",
+            img: home5,
+            bg: build
+        }
+    ]
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 600,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        arrows: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        centerMode: true,
+        centerPadding: "1px",
+        responsive: [
+            { breakpoint: 1024, settings: { slidesToShow: 2, centerPadding: "15px" } },
+            { breakpoint: 640, settings: { slidesToShow: 1, centerPadding: "10px" } }
+        ]
+    };
+
+
+
+
     return (
         <div>
             <header>
@@ -86,6 +193,7 @@ export default function Header() {
                     <div className='mt-50 text-center flex flex-col gap-5 items-center'>
                         <h1 className="text-5xl text-white">Skyper Pool Partment</h1>
                         <p className='text-[#fff]'>112 Glenwood Ave Hyde Park, Boston, MA</p>
+
                         <div className='flex items-center gap-10'>
                             <div className='flex flex-col items-center'>
                                 <img src={bed} alt="" />
@@ -114,124 +222,65 @@ export default function Header() {
                             <h1 className='text-5xl font-bold text-[#0D263B]'>Recommended</h1>
                             <p className='text-[#696969] text-2xl'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.</p>
                         </div>
-                        <div className='container  grid grid-cols-1 md:grid-cols-3 gap-8'>
-                            <div className='h-[500px]  rounded-[3px] bg-[white] shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)]'>
-                                <div className='flex bg-cover h-[250px]' >
-                                    <img src={image} alt="" />
-                                </div>
-                                <div className='flex  p-5 flex-col justify-start items-start'>
-                                    <h1 className='font-bold'>New Apartment Nice Wiew</h1>
-                                    <p>Quincy St, Brooklyn, NY, USA</p>
-                                </div>
-                                <div className='flex items-center gap-5 px-5'>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bed2} alt="" />
-                                        <p className=' text-gray-400'>4 Beds</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bath2} alt="" />
-                                        <p className=' text-gray-400'>5 Bath</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={car2} alt="" />
-                                        <p className=' text-gray-400'>1 Garage</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={rule2} alt="" />
-                                        <p className=' text-gray-400'>1200 Sq Ft</p>
-                                    </div>
+                        <div className='container'>
+                            <Slider {...settings}>
+                                {apartments.map((el, i) => (
+                                    <div key={i} className="px-4">
+                                        <div className='h-[500px] rounded-[3px] relative bg-white shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] w-full'>
 
-                                </div>
-                                <hr className='w-[410px] text-gray-400 container mt-10' />
-                                <div className='flex items-center justify-between  mt-2'>
-                                    <div className='flex items-start justify-start px-5 flex-col'>
-                                        <p className='text-gray-500'><del>$2,800/mo</del></p>
-                                        <p className='font-bold text-[20px]'>$7,500/mo</p>
-                                    </div>
-                                    <div className="flex gap-5 mx-3">
-                                        <img src={resize} alt="" className="w-7 h-7" />
-                                        <img src={love} alt="" className="w-7 h-7" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='h-[500px]  rounded-[3px]  bg-[white] shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)]' >
-                                <div className='flex bg-cover h-[250px]' >
-                                    <img src={images} alt="" />
-                                </div>
-                                <div className='flex  p-5 flex-col justify-start items-start'>
-                                    <h1 className='font-bold'>New Apartment Nice Wiew</h1>
-                                    <p>Quincy St, Brooklyn, NY, USA</p>
-                                </div>
-                                <div className='flex items-center gap-5 px-5'>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bed2} alt="" />
-                                        <p className=' text-gray-400'>4 Beds</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bath2} alt="" />
-                                        <p className=' text-gray-400'>5 Bath</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={car2} alt="" />
-                                        <p className=' text-gray-400'>1 Garage</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={rule2} alt="" />
-                                        <p className=' text-gray-400'>1200 Sq Ft</p>
-                                    </div>
+                                            <div className='h-[250px] overflow-hidden rounded-t-[3px]'>
+                                                <img src={el.image} alt="" className="w-full h-full object-cover" />
+                                            </div>
 
-                                </div>
-                                <hr className='w-[410px] text-gray-400 container mt-10' />
-                                <div className='flex items-center justify-between mt-2'>
-                                    <div className='flex items-start justify-start px-5 flex-col'>
-                                        <p className='text-gray-500'><del>$2,800/mo</del></p>
-                                        <p className='font-bold text-[20px]'>$7,500/mo</p>
-                                    </div>
-                                    <div className="flex gap-5 mx-3">
-                                        <img src={resize} alt="" className="w-7 h-7" />
-                                        <img src={love} alt="" className="w-7 h-7" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='h-[500px]  rounded-[3px]  bg-[white] shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)]'>
-                                <div className='flex bg-cover h-[250px]' >
-                                    <img src={imagess} alt="" />
-                                </div>
-                                <div className='flex  p-5 flex-col justify-start items-start'>
-                                    <h1 className='font-bold'>New Apartment Nice Wiew</h1>
-                                    <p>Quincy St, Brooklyn, NY, USA</p>
-                                </div>
-                                <div className='flex items-center gap-5 px-5'>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bed2} alt="" />
-                                        <p className=' text-gray-400'>4 Beds</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={bath2} alt="" />
-                                        <p className=' text-gray-400'>5 Bath</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={car2} alt="" />
-                                        <p className=' text-gray-400'>1 Garage</p>
-                                    </div>
-                                    <div className='flex flex-col items-center gap-2'>
-                                        <img src={rule2} alt="" />
-                                        <p className=' text-gray-400'>1200 Sq Ft</p>
-                                    </div>
+                                            <div className='absolute top-3 flex gap-50 px-5 ml-2'>
+                                                <button className='text-[12px] rounded-[3px] bg-blue-600 text-white font-bold tracking-wide p-2'>FEATURED</button>
+                                                <button className='text-[12px] rounded-[3px] bg-gray-700 text-white font-bold tracking-wide p-2'>FOR SALE</button>
+                                            </div>
 
-                                </div>
-                                <hr className='w-[410px] text-gray-400 container mt-10' />
-                                <div className='flex items-center justify-between  mt-2'>
-                                    <div className='flex items-start justify-start px-5 flex-col'>
-                                        <p className='text-gray-500'><del>$2,800/mo</del></p>
-                                        <p className='font-bold text-[20px]'>$7,500/mo</p>
+                                            <div className='absolute right-7 top-56 p-1 bg-white rounded-full'>
+                                                <img src={hacker} alt="" className='w-13' />
+                                            </div>
+
+                                            <div className='flex p-5 flex-col justify-start items-start'>
+                                                <h1 className='font-bold'>{el.title}</h1>
+                                                <p>{el.address}</p>
+                                            </div>
+
+                                            <div className='flex items-center gap-5 px-5'>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={bed2} alt="" />
+                                                    <p className='text-gray-400'>{el.beds}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={bath2} alt="" />
+                                                    <p className='text-gray-400'>{el.baths}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={car2} alt="" />
+                                                    <p className='text-gray-400'>{el.garage}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={rule2} alt="" />
+                                                    <p className='text-gray-400'>{el.area}</p>
+                                                </div>
+                                            </div>
+
+                                            <hr className='w-full text-gray-300 mt-5' />
+
+                                            <div className='flex items-center justify-between mt-2 px-5'>
+                                                <div className='flex flex-col'>
+                                                    <p className='text-gray-500'><del>{el.oldPrice}</del></p>
+                                                    <p className='font-bold text-[20px]'>{el.newPrice}</p>
+                                                </div>
+                                                <div className="flex gap-5">
+                                                    <img src={resize} alt="" className="w-7 h-7" />
+                                                    <img src={love} alt="" className="w-7 h-7" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex gap-5 mx-3">
-                                        <img src={resize} alt="" className="w-7 h-7" />
-                                        <img src={love} alt="" className="w-7 h-7" />
-                                    </div>
-                                </div>
-                            </div>
+                                ))}
+                            </Slider>
                         </div>
                     </div>
                 </section>
@@ -305,38 +354,103 @@ export default function Header() {
                         <h1 className='text-4xl'>Categories</h1>
                         <p className='text-2xl'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.</p>
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-5 w-[1300px] mt-10 mx-auto'>
-                            <div className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center' style={{ backgroundImage: `url(${build})` }}>
-                                <img src={home3} alt="" />
-                                <h1 className='text-2xl text-[#fff]'>Home</h1>
-                            </div>
-
-                            <div className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center' style={{ backgroundImage: `url(${build2})` }}>
-                                <img src={apartment} alt="" />
-                                <h1 className='text-2xl text-[#fff]'>Apartment</h1>
-                            </div>
-
-                            <div className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center' style={{ backgroundImage: `url(${build3})` }}>
-                                <img src={office} alt="" />
-                                <h1 className='text-2xl text-[#fff]'>Office</h1>
-                            </div>
-
-                            <div className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center' style={{ backgroundImage: `url(${build})` }}>
-                                <img src={home5} alt="" />
-                                <h1 className='text-2xl text-[#fff]'>Home</h1>
-                            </div>
+                            {
+                                category.map(el => (
+                                    <div className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center' style={{ backgroundImage: `url(${el.bg})` }}>
+                                        <img src={el.img} alt="" />
+                                        <h1 className='text-2xl text-[#fff]'>{el.name}</h1>
+                                    </div>
+                                ))
+                            }
 
                         </div>
                     </div>
                 </section>
                 <section
-                    className="big-container bg-cover bg-center h-[680px] mt-10 flex  justify-center"
+                    className="big-container relative bg-cover bg-center h-[680px] mt-10 flex  justify-center"
                     style={{ backgroundImage: `url(${home_infinite})` }}
                 >
-                    <div className='mt-50 text-center flex flex-col gap-5 items-center'>
-                        <h1 className="text-5xl text-white">Vermont Farmhouse With Antique Jail Is<br/>the Week's Most Popular Home</h1>
-                        <button className='p-3 px-10 flex mt-5 items-center gap-3  rounded-[3px] bg-blue-500 text-[#fff]'>Learn More</button>
+                    <div className="absolute inset-0 bg-black/70"></div>
+                    <div className='mt-50 text-center  flex flex-col z-30 gap-5 items-center'>
+                        <h1 className="text-5xl text-white">Vermont Farmhouse With Antique Jail Is<br />the Week's Most Popular Home</h1>
+                        <button className='!p-4 !px-8 flex !mt-8 items-center gap-3  rounded-[3px] !bg-blue-500  !text-2xl !text-[#fff]'>Learn More</button>
                     </div>
                 </section>
+
+                <section>
+                    <div className='mt-10'>
+                        <div className='text-center flex flex-col gap-5 py-5'>
+                            <h1 className='text-4xl'>Recent Properties for Rent</h1>
+                            <p className='text-2xl text-gray'>
+                                Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.
+                            </p>
+                        </div>
+
+                        <div className='container'>
+                            <Slider {...settings}>
+                                {apartments.map((el, i) => (
+                                    <div key={i} className="px-4">
+                                        <div className='h-[500px] rounded-[3px] relative bg-white shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] w-full'>
+
+                                            <div className='h-[250px] overflow-hidden rounded-t-[3px]'>
+                                                <img src={el.image} alt="" className="w-full h-full object-cover" />
+                                            </div>
+
+                                            <div className='absolute top-3 flex gap-50 px-5 ml-2'>
+                                                <button className='text-[12px] rounded-[3px] bg-blue-600 text-white font-bold tracking-wide p-2'>FEATURED</button>
+                                                <button className='text-[12px] rounded-[3px] bg-gray-700 text-white font-bold tracking-wide p-2'>FOR SALE</button>
+                                            </div>
+
+                                            <div className='absolute right-7 top-56 p-1 bg-white rounded-full'>
+                                                <img src={hacker} alt="" className='w-13' />
+                                            </div>
+
+                                            <div className='flex p-5 flex-col justify-start items-start'>
+                                                <h1 className='font-bold'>{el.title}</h1>
+                                                <p>{el.address}</p>
+                                            </div>
+
+                                            <div className='flex items-center gap-5 px-5'>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={bed2} alt="" />
+                                                    <p className='text-gray-400'>{el.beds}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={bath2} alt="" />
+                                                    <p className='text-gray-400'>{el.baths}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={car2} alt="" />
+                                                    <p className='text-gray-400'>{el.garage}</p>
+                                                </div>
+                                                <div className='flex flex-col items-center gap-2'>
+                                                    <img src={rule2} alt="" />
+                                                    <p className='text-gray-400'>{el.area}</p>
+                                                </div>
+                                            </div>
+
+                                            <hr className='w-full text-gray-300 mt-5' />
+
+                                            <div className='flex items-center justify-between mt-2 px-5'>
+                                                <div className='flex flex-col'>
+                                                    <p className='text-gray-500'><del>{el.oldPrice}</del></p>
+                                                    <p className='font-bold text-[20px]'>{el.newPrice}</p>
+                                                </div>
+                                                <div className="flex gap-5">
+                                                    <img src={resize} alt="" className="w-7 h-7" />
+                                                    <img src={love} alt="" className="w-7 h-7" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </Slider>
+                        </div>
+
+
+                    </div>
+                </section>
+
             </header>
         </div>
     )
