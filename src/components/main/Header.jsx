@@ -36,6 +36,8 @@ import hacker from "../img/Ellipse 11.png"
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import Footer from './Footer'
+import { TestimonialCarousel } from './Comment'
 
 export default function Header() {
 
@@ -446,12 +448,13 @@ export default function Header() {
                                 ))}
                             </Slider>
                         </div>
-
-
                     </div>
                 </section>
-
+                <section>
+                    <TestimonialCarousel/>
+                </section>
             </header>
+            <Footer/>
         </div>
     )
 }
