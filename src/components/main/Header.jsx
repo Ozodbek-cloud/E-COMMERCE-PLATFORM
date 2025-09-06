@@ -38,6 +38,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Footer from './Footer'
 import { TestimonialCarousel } from './Comment'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
 
@@ -154,7 +155,7 @@ export default function Header() {
                                 <li className='font-bold text-white'>Properties</li>
                                 <li className='font-bold text-white'>Contacts</li>
                             </ul>
-                            <img src={vector} alt="" />
+                            <Link to="/reg"><img src={vector} alt="" /></Link>
                         </nav>
                     </div>
                 </section>
