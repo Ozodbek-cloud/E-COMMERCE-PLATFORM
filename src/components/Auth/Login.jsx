@@ -1,59 +1,111 @@
-import React from 'react'
-import vector from "../img/Vector.png"
-import logo from "../img/logo.png"
-import Footer from '../main/Footer'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Alert, Snackbar } from '@mui/material';
+import '../../../public/style.css';
 
 function Login() {
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
+    const navigate = useNavigate()
+    const [successOpen, setSuccessOpen] = useState(false);
+    const [errorOpen, setErrorOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleClose = () => {
+        setErrorOpen(false);
+        setSuccessOpen(false);
+    };
+
+    const submit = async (e) => {
+        e.preventDefault()
+        try {
+          let data = await axios.post('https://e-commerce-backend-eb94.onrender.com/auth/login', {
+                email: email,
+                password: pass
+            })
+            setSuccessOpen(true);
+            navigate("/main") 
+            localStorage.setItem("token", data.data.token.accessToken)
+        } catch (error) {
+            console.error("Error:", error.response?.data || error.message);
+            setErrorMessage(error.response?.data?.message || "Something went wrong");
+            setErrorOpen(true);
+        }
+    }
+
     return (
-        <div>
-            <header>
-                <section className='big-container bg-[#0D263B]'>
-                    <div className='container'>
-                        <nav className='flex justify-between items-center py-5'>
-                            <img src={logo} alt="Logo" />
-                            <ul className='flex gap-5'>
-                                <li className='font-bold text-white'>Home</li>
-                                <li className='font-bold text-white'>Properties</li>
-                                <li className='font-bold text-white'>Contacts</li>
-                            </ul>
-                            <img src={vector} alt="" />
-                        </nav>
-                    </div>
-                </section>
-                <section className="flex justify-center items-center mt-30 mb-26">
-                    <div className="bg-white shadow-lg rounded-lg p-10 px-15 max-w-[500px] w-full ">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-6">Login</h2>
-                        <form className="space-y-4 ">
-                           
-                            <div>
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
-                            
-                            <div>
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
+        <div className="login-container">
+            <div className="background-animation">
+                <div className="shape shape1"></div>
+                <div className="shape shape2"></div>
+                <div className="shape shape3"></div>
+                <div className="shape shape4"></div>
+            </div>
+            
+            <div className="login-form-container">
+                <div className="form-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your account</p>
+                </div>
                 
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-                            >
-                                Register
-                            </button>
-                        </form>
+                <form className="login-form" onSubmit={submit}>
+                    <div className="input-group">
+                        <input
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                            type="email"
+                            placeholder="Email address"
+                            required
+                        />
                     </div>
-                </section>
-            </header>
-            <Footer />
+
+                    <div className="input-group">
+                        <input
+                            onChange={e => setPass(e.target.value)}
+                            value={pass}
+                            type="password"
+                            placeholder="Password"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="login-btn"
+                    >
+                        Sign In
+                    </button>
+                    
+                    <div className="form-footer">
+                        <p>Don't have an account? <Link to="/reg">Sign Up</Link></p>
+                    </div>
+                </form>
+            </div>
+            
+            <Snackbar
+                open={errorOpen}
+                autoHideDuration={4000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
+
+            <Snackbar
+                open={successOpen}
+                autoHideDuration={4000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Login successful!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
 
-export default Login
+export default Login;

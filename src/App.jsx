@@ -3,16 +3,19 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/main/Header";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
+import Main from "./components/main/main";
+import Proporties from "./components/main/Proporties";
 
 export default function App() {
   return (
     <Router>
-        <Routes>
-          <Route path="/" element={<Header />} />
-          <Route path="/reg" element={<Register />} />
-          <Route path="/log" element={<Login />} />
-        </Routes>
-     
+      <Routes>
+        <Route path="/" element={<Header />} />
+        <Route path="/reg" element={<Register />} />
+        <Route path="/log" element={<Login />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/prop" element={<Proporties />} />
+      </Routes>
     </Router>
   );
 }

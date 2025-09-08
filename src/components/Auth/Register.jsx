@@ -1,127 +1,148 @@
-import React, { useState } from 'react'
-import vector from "../img/Vector.png"
-import logo from "../img/logo.png"
-import Footer from '../main/Footer'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../../../public/style.css';
+import axios from 'axios';
 
-function Register() {
+const Register = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        login: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        role: "",
-        password: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: '',
+        password: ''
     });
 
+    const [successOpen, setSuccessOpen] = useState(false);
+    const [errorOpen, setErrorOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleChange = (e) => {
-        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value,
+            [e.target.name]: e.target.value
         });
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('https://e-commerce-backend-eb94.onrender.com/auth/register', {
-            data: formData
-        })
+        try {
+            console.log("Registration data:", formData);
+
+            await axios.post('https://e-commerce-backend-eb94.onrender.com/auth/register', formData);
+
+            setSuccessOpen(true);
+            setTimeout(() => {
+                setSuccessOpen(false);
+                navigate("/log");
+            }, 2000);
+
+        } catch (err) {
+            console.error("Error:", err);
+            setErrorMessage(err.response?.data?.message || "Something went wrong");
+            setErrorOpen(true);
+        }
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setSuccessOpen(false);
+        setErrorOpen(false);
     };
 
     return (
-        <div>
-            <header>
-                <section className='big-container bg-[#0D263B]'>
-                    <div className='container'>
-                        <nav className='flex justify-between items-center py-5'>
-                            <img src={logo} alt="Logo" />
-                            <ul className='flex gap-5'>
-                                <li className='font-bold text-white'>Home</li>
-                                <li className='font-bold text-white'>Properties</li>
-                                <li className='font-bold text-white'>Contacts</li>
-                            </ul>
-                            <img src={vector} alt="" />
-                        </nav>
-                    </div>
-                </section>
-                <section className="flex justify-center items-center mt-10">
-                    <div className="bg-white shadow-lg rounded-lg p-10 px-15 max-w-[500px] w-full ">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-6">Registration</h2>
-                        <form className="space-y-4" onSubmit={handleSubmit}>
-                            
-                            <div>
-                                <input
-                                    type="text"
-                                    name="firstName"
-                                    value={formData.firstName}
-                                    onChange={handleChange}
-                                    placeholder="First name"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="lastName"
-                                    value={formData.lastName}
-                                    onChange={handleChange}
-                                    placeholder="Last name"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Email"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
-                            <div>
-                                <select
-                                    name="role"
-                                    value={formData.role}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                >
-                                    <option value="">User role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
-                                </select>
-                            </div>
-                            <div>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Password"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                            </div>
-                           
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-                            >
-                                Register
-                            </button>
-                        </form>
-                        <div className="text-center mt-4">
-                            <Link to="/log" className="text-blue-600 hover:underline">
-                                Already have an account? Login
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-            </header>
-            <Footer />
-        </div>
-    )
-}
+        <div className="register-container">
+            <div className="background-animation">
+                <div className="shape shape1"></div>
+                <div className="shape shape2"></div>
+                <div className="shape shape3"></div>
+                <div className="shape shape4"></div>
+            </div>
 
-export default Register
+            <div className="register-form-container">
+                <div className="form-header">
+                    <h2>Create Account</h2>
+                    <p>Join our community today</p>
+                </div>
+
+                <form className="register-form" onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            placeholder="First name"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            placeholder="Last name"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Email address"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select role</option>
+                            <option value="Customer">Customer</option>
+                            <option value="User">User</option>
+                        </select>
+                    </div>
+                    <div className="input-group">
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="register-btn">
+                        Create Account
+                    </button>
+                </form>
+
+                <div className="form-footer">
+                    <p>Already have an account? <Link to="/log">Sign In</Link></p>
+                </div>
+            </div>
+
+            {successOpen && (
+                <div className="snackbar success">
+                    <span>Successfully registered! Redirecting...</span>
+                </div>
+            )}
+
+            {errorOpen && (
+                <div className="snackbar error">
+                    <span>{errorMessage}</span>
+                    <button onClick={handleClose}>×</button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Register;

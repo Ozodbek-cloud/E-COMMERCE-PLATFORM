@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logo from "../img/logo.png"
 import home from "../img/Vector (1).png"
 import idk from "../img/price 1.png"
@@ -39,8 +39,18 @@ import "slick-carousel/slick/slick-theme.css"
 import Footer from './Footer'
 import { TestimonialCarousel } from './Comment'
 import { Link, useNavigate } from 'react-router-dom'
+import * as jwt_decode from 'jwt-decode';
 
 export default function Header() {
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        navigate('/reg');
+        return;
+    } else {
+        navigate("/main")
+    }
 
     const apartments = [
         {
@@ -140,17 +150,6 @@ export default function Header() {
         ]
     };
 
-    const navigate = useNavigate()
-    function submit(e) {
-        e.preventDefault()
-        let token = localStorage.getItem("token")
-        if (!token) {
-            navigate('/reg');
-            return;
-        } else {
-            navigate("/main")
-        }
-    }
     return (
         <div>
             <header>
@@ -159,12 +158,11 @@ export default function Header() {
                         <nav className='flex justify-between items-center py-5'>
                             <img src={logo} alt="Logo" />
                             <ul className='flex gap-5'>
-                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/">Home</Link></li>
+                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/main">Home</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'>Contacts</li>
                             </ul>
-
-                            <button onClick={submit} className='p-3 border px-10 border-gray-500 font-bold text-gray-500 rounded-[3px] hover:bg-[#0061DF] hover:text-white hover:border-[#0061DF] transition-colors duration-300'>Login</button>
+                            <img src={vector} alt="" />
                         </nav>
                     </div>
                 </section>
