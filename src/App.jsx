@@ -5,6 +5,7 @@ import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import Main from "./components/main/main";
 import Proporties from "./components/main/Proporties";
+import NewPropety from "./components/main/NewPropety";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/log" element={<Login />} />
         <Route path="/main" element={<Main />} />
         <Route path="/prop" element={<Proporties />} />
+        <Route path="/new_property" element={<NewPropety />} />
       </Routes>
     </Router>
   );
