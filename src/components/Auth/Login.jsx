@@ -20,13 +20,14 @@ function Login() {
     const submit = async (e) => {
         e.preventDefault()
         try {
-          let data = await axios.post('https://e-commerce-backend-eb94.onrender.com/auth/login', {
+            let data = await axios.post('https://e-commerce-backend-p8cw.onrender.com/auth/login', {
                 email: email,
                 password: pass
             })
             setSuccessOpen(true);
-            navigate("/main") 
+            navigate("/main")
             localStorage.setItem("token", data.data.token.accessToken)
+            
         } catch (error) {
             console.error("Error:", error.response?.data || error.message);
             setErrorMessage(error.response?.data?.message || "Something went wrong");
@@ -42,13 +43,13 @@ function Login() {
                 <div className="shape shape3"></div>
                 <div className="shape shape4"></div>
             </div>
-            
+
             <div className="login-form-container">
                 <div className="form-header">
                     <h2>Welcome Back</h2>
                     <p>Sign in to your account</p>
                 </div>
-                
+
                 <form className="login-form" onSubmit={submit}>
                     <div className="input-group">
                         <input
@@ -76,13 +77,13 @@ function Login() {
                     >
                         Sign In
                     </button>
-                    
+
                     <div className="form-footer">
                         <p>Don't have an account? <Link to="/reg">Sign Up</Link></p>
                     </div>
                 </form>
             </div>
-            
+
             <Snackbar
                 open={errorOpen}
                 autoHideDuration={4000}

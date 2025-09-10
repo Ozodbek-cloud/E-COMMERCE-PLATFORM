@@ -7,6 +7,7 @@ import Main from "./components/main/main";
 import Proporties from "./components/main/Proporties";
 import NewPropety from "./components/main/NewPropety";
 import Contact from "./components/main/Contact";
+import InsidePropertyPage from "./components/main/InsideProperty";
 export default function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/prop" element={<Proporties />} />
         <Route path="/new_property" element={<NewPropety />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/property" element={<InsidePropertyPage />} />
       </Routes>
     </Router>
   );

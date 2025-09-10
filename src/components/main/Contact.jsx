@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Dialog, DialogContent, Typography, CircularProgress} from '@mui/material'
+import { Dialog, DialogContent, Typography, CircularProgress } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 import axios from 'axios'
@@ -14,7 +14,7 @@ function Contact() {
     const [fullName, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [message, setMessage] = useState("")
-
+    const [active, setActive] = useState(false)
     const [modal, setModal] = useState({
         open: false,
         loading: false,
@@ -71,9 +71,23 @@ function Contact() {
                             <ul className='flex gap-5'>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/main">Home</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
-                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contacts</Link></li>
+                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
-                            <img src={vector} alt="" />
+                            <div>
+                                <img onClick={() => setActive(!active)} src={vector} alt="" />
+                                {active && (
+                                    <div className="absolute mt-2 right-70 w-60 bg-white border rounded-xl shadow-lg">
+                                        <ul className="flex flex-col">
+                                            <button className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Properties</button>
+                                            <button className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Favourites</button>
+                                            <button className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</button>
+                                            <button className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add New Properties</button>
+                                            <button onClick={exit} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Chiqish</button>
+                                        </ul>
+                                    </div>
+                                )}
+
+                            </div>
                         </nav>
                     </div>
                 </section>
@@ -86,7 +100,7 @@ function Contact() {
                     </div>
                 </section>
 
-                
+
                 <section className={`relative z-10 max-w-[1150px] flex flex-col items-center justify-center mx-auto mt-[40px] border h-auto p-6 rounded-lg ${dark ? "bg-[#101828] text-white" : "bg-white text-black"}`}>
                     <h1 className='text-3xl font-bold mb-6'>Murojaatlarni shu yerdan jo'nating</h1>
                     <form className='flex flex-col gap-4 w-full max-w-[500px]' onSubmit={post_Comment}>

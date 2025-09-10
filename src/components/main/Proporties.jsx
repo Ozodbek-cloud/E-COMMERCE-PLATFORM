@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "../img/logo.png"
 import home from "../img/Vector (1).png"
 import idk from "../img/price 1.png"
@@ -20,6 +20,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import Footer from './Footer'
 export default function Proporties() {
     const navigate = useNavigate()
+    const [active, setActive] = useState(false)
     useEffect(() => {
         const token = localStorage.getItem('token');
         try {
@@ -33,7 +34,10 @@ export default function Proporties() {
             navigate('/reg');
         }
     }, [navigate]);
-
+    function exit() {
+        localStorage.removeItem("token")
+        navigate("/reg")
+    }
     const apartments = [
         {
             title: "New Apartment Nice View",
@@ -105,7 +109,20 @@ export default function Proporties() {
                                 <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
-                            <img src={vector} alt="" />
+                            <div>
+                                <img onClick={() => setActive(!active)} src={vector} alt="" />
+                                {active && (
+                                    <div className="absolute mt-2 right-70 w-40 bg-white border rounded-xl shadow-lg">
+                                        <ul className="flex flex-col">
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Properties</li>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Favourites</li>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add New Properties</li>
+                                            <button onClick={exit} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Chiqish</button>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
                         </nav>
                     </div>
                 </section>
