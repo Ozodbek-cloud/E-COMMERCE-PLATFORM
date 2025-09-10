@@ -112,13 +112,26 @@ export default function Proporties() {
                             <div>
                                 <img onClick={() => setActive(!active)} src={vector} alt="" />
                                 {active && (
-                                    <div className="absolute mt-2 right-70 w-40 bg-white border rounded-xl shadow-lg">
-                                        <ul className="flex flex-col">
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Properties</li>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Favourites</li>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add New Properties</li>
-                                            <button onClick={exit} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Chiqish</button>
+                                    <div className="absolute mt-3 right-60 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
+                                        <ul className="flex flex-col text-gray-700 font-medium">
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                My Properties
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                Favourites
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                My Profile
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                Add New Properties
+                                            </li>
+                                            <button
+                                                onClick={exit}
+                                                className="px-5 py-3 text-left hover:bg-gradient-to-r from-red-50 to-red-100 hover:text-red-600 transition-colors cursor-pointer"
+                                            >
+                                                Chiqish
+                                            </button>
                                         </ul>
                                     </div>
                                 )}
