@@ -44,6 +44,7 @@ export default function Header() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
     const [active, setActive] = useState(false)
+    const [love, setLove] = useState(false)
     if (!token) {
         navigate('/reg');
         return;
@@ -173,13 +174,13 @@ export default function Header() {
                                                 My Properties
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                Favourites
+                                                <Link to="/favourites">Favourites</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 My Profile
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                Add New Properties
+                                                <Link to="/new_property">Add New Properties</Link>
                                             </li>
                                             <button
                                                 onClick={exit}
@@ -313,7 +314,7 @@ export default function Header() {
                                                 </div>
                                                 <div className="flex gap-5">
                                                     <img src={resize} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
-                                                    <img src={love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
+                                                    <img onClick={() => setLove(!love)} src={love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
                                                 </div>
                                             </div>
                                         </div>

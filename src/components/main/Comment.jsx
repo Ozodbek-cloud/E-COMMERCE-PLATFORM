@@ -55,7 +55,6 @@ export const TestimonialCarousel = () => {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  // Yulduzchalarni yaratish uchun funksiya
   const renderStars = (rating) => {
     return Array.from({ length: 5 }).map((_, index) => (
       <span

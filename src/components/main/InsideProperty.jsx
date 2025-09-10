@@ -30,13 +30,13 @@ export default function InsidePropertyPage() {
                       My Properties
                     </li>
                     <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                      Favourites
+                      <Link to="/favourites">Favourites</Link>
                     </li>
                     <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                       My Profile
                     </li>
                     <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                      Add New Properties
+                      <Link to="/new_property">Add New Properties</Link>
                     </li>
                     <button
                       onClick={exit}

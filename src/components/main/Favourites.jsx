@@ -15,12 +15,14 @@ import bed2 from "../img/bed2.png"
 import bath2 from "../img/bath2.png"
 import resize from "../img/expand.png"
 import love from "../img/heart.png"
+import love_active from "../img/love.png"
 import hacker from "../img/Ellipse 11.png"
 import { useNavigate, Link } from 'react-router-dom'
 import Footer from './Footer'
-export default function Proporties() {
+export default function Favourites() {
     const navigate = useNavigate()
     const [active, setActive] = useState(false)
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         try {
@@ -38,6 +40,7 @@ export default function Proporties() {
         localStorage.removeItem("token")
         navigate("/reg")
     }
+
     const apartments = [
         {
             title: "New Apartment Nice View",
@@ -97,6 +100,15 @@ export default function Proporties() {
         }
     ]
 
+    const [loves, setLoves] = useState(Array(apartments.length).fill(true))
+
+    function toggleLove(index) {
+        setLoves(prev => {
+            const newLoves = [...prev]
+            newLoves[index] = !newLoves[index]
+            return newLoves
+        })
+    }
     return (
         <div>
             <header>
@@ -106,7 +118,7 @@ export default function Proporties() {
                             <img src={logo} alt="Logo" />
                             <ul className='flex gap-5'>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/main">Home</Link></li>
-                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
+                                <li className='font-bold text-[white] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
                             <div>
@@ -171,7 +183,7 @@ export default function Proporties() {
                 </section>
                 <section className='mt-15'>
                     <div className='text-center flex flex-col gap-5'>
-                        <h1 className='font-bold text-5xl'>Properties</h1>
+                        <h1 className='font-bold text-5xl'>Favourites</h1>
                         <h3 className='text-2xl text-gray-600'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.    </h3>
                     </div>
 
@@ -233,7 +245,7 @@ export default function Proporties() {
                                             </div>
                                             <div className="flex gap-5">
                                                 <img src={resize} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
-                                                <img src={love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
+                                                <img onClick={() => toggleLove(i)} src={loves[i] ? love_active : love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
                                             </div>
                                         </div>
                                     </div>

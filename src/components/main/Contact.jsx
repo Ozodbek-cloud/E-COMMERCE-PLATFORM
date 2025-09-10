@@ -26,7 +26,10 @@ function Contact() {
         const timer = setTimeout(() => setProgres(false), 1000)
         return () => clearTimeout(timer)
     }, [])
-
+    function exit() {
+        localStorage.removeItem("token")
+        navigate("/reg")
+    }
     async function post_Comment(e) {
         e.preventDefault()
 
@@ -82,13 +85,13 @@ function Contact() {
                                                 My Properties
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                Favourites
+                                                <Link to="/favourites">Favourites</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 My Profile
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                Add New Properties
+                                                <Link to="/new_property">Add New Properties</Link>
                                             </li>
                                             <button
                                                 onClick={exit}
@@ -104,7 +107,7 @@ function Contact() {
                         </nav>
                     </div>
                 </section>
-                <section className='relative max-w-[1150px] mx-auto pt-[100px]'>
+                <section className='relative max-w-[1150px] mx-auto pt-[50px]'>
                     <div className="absolute top-[100px] right-[900px] w-[100px] h-[100px] md:w-[500px] md:h-[500px] lg:w-[700px] lg:h-[700px] rounded-full blur-[100px] bg-[#e4b75a] opacity-15 -z-10"></div>
 
                     <div className='relative z-10'>

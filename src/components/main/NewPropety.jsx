@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import { Upload, MapPin, Camera, Paperclip, Video, Eye } from 'lucide-react'
 import logo from "../img/logo.png"
 import vector from "../img/Vector.png"
 import Footer from './Footer'
 
 export default function NewProperty() {
+    const [active, setActive] = useState(false)
+    function exit() {
+        localStorage.removeItem("token")
+        navigate("/reg")
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
             <header>
@@ -18,7 +23,35 @@ export default function NewProperty() {
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-200'><Link to="/prop">Properties</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-200 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
-                            <img src={vector} alt="" />
+                            <div>
+                                <img onClick={() => setActive(!active)} src={vector} alt="" />
+                                {active && (
+                                    <div className="absolute mt-3 right-60 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
+                                        <ul className="flex flex-col text-gray-700 font-medium">
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                My Properties
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                <Link to="/favourites">Favourites</Link>
+
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                My Profile
+                                            </li>
+                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+                                                <Link to="/new_property">Add New Properties</Link>
+                                            </li>
+                                            <button
+                                                onClick={exit}
+                                                className="px-5 py-3 text-left hover:bg-gradient-to-r from-red-50 to-red-100 hover:text-red-600 transition-colors cursor-pointer"
+                                            >
+                                                Chiqish
+                                            </button>
+                                        </ul>
+                                    </div>
+                                )}
+
+                            </div>
                         </nav>
                     </div>
                 </section>
