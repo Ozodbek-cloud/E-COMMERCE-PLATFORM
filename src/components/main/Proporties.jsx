@@ -103,7 +103,7 @@ export default function Proporties() {
                             <ul className='flex gap-5'>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/main">Home</Link></li>
                                 <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
-                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'>Contacts</li>
+                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
                             <img src={vector} alt="" />
                         </nav>

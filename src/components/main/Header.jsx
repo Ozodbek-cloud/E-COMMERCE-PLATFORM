@@ -161,7 +161,7 @@ export default function Header() {
                             <ul className='flex gap-5'>
                                 <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/">Home</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Proporties</Link></li>
-                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'>Contacts</li>
+                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
 
                             <button onClick={submit} className='p-3 border px-10 border-gray-500 font-bold text-gray-500 rounded-[3px] hover:bg-[#0061DF] hover:text-white hover:border-[#0061DF] transition-colors duration-300'>Login</button>

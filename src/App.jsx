@@ -6,7 +6,7 @@ import Login from "./components/Auth/Login";
 import Main from "./components/main/main";
 import Proporties from "./components/main/Proporties";
 import NewPropety from "./components/main/NewPropety";
-
+import Contact from "./components/main/Contact";
 export default function App() {
   return (
     <Router>
@@ -17,6 +17,7 @@ export default function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/prop" element={<Proporties />} />
         <Route path="/new_property" element={<NewPropety />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );

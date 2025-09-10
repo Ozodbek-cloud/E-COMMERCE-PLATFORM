@@ -16,7 +16,7 @@ export default function NewProperty() {
                             <ul className='flex gap-8'>
                                 <li className='font-bold text-[#0061DF] transition-colors duration-200'><Link to="/main">Home</Link></li>
                                 <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-200'><Link to="/prop">Properties</Link></li>
-                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-200 cursor-pointer'>Contacts</li>
+                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-200 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
                             <img src={vector} alt="" />
                         </nav>
