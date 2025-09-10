@@ -9,6 +9,7 @@ import NewPropety from "./components/main/NewPropety";
 import Contact from "./components/main/Contact";
 import InsidePropertyPage from "./components/main/InsideProperty";
 import Favourites from "./components/main/Favourites";
+import MyProperties from "./components/main/MyProperties";
 export default function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/property" element={<InsidePropertyPage />} />
         <Route path="/favourites" element={<Favourites />} />
+        <Route path="/my_properties" element={<MyProperties />} />
       </Routes>
     </Router>
   );
