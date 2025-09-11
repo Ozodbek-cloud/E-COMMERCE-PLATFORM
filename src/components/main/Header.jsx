@@ -169,7 +169,7 @@ export default function Header() {
                     </div>
                 </section>
                 <section>
-                    <div className='container py-3 flex justify-between'>
+                    <div className='container py-3 flex gap-5 flex-wrap md:justify-between'>
                         <div className='flex items-center py-2 gap-4 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] transition-shadow duration-300'>
                             <img src={home} alt="Home" className='ml-3' />
                             <input
@@ -228,65 +228,50 @@ export default function Header() {
                         <button className='p-3 px-10 flex mt-5 items-center gap-3  rounded-[3px] border border-[#fff] text-[#fff] hover:bg-[#0061DF] hover:border-[#0061DF] hover:text-white transition-colors duration-300'>Learn More</button>
                     </div>
                 </section>
-                <section className=' h-[800px] flex justify-center mt-10'>
-                    <div className='bg-[#000000A6] h-[650px] w-[1900px] flex flex-col items-center gap-8'>
-                        <div className='mt-30 text-center flex flex-col gap-4'>
-                            <h1 className='text-5xl font-bold text-[#0D263B]'>Recommended</h1>
-                            <p className='text-[#696969] text-2xl'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.</p>
+                <section className='flex justify-center mt-10 px-2 md:px-6'>
+                    <div className='bg-black/65 w-full max-w-[1920px] flex flex-col items-center gap-8 py-10'>
+                        <div className='text-center flex flex-col gap-4 px-2 md:px-0'>
+                            <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-[#0D263B]'>Recommended</h1>
+                            <p className='text-gray-400 text-base sm:text-xl md:text-2xl'>
+                                Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.
+                            </p>
                         </div>
-                        <div className='container'>
+                        <div className='w-full container'>
                             <Slider {...settings}>
                                 {apartments.map((el, i) => (
-                                    <div key={i} className="px-4">
-                                        <div className='h-[500px] rounded-[3px] relative bg-white shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] w-full hover:shadow-[0px_0px_15px_7px_rgba(0,_97,_223,_0.3)] hover:-translate-y-2 transition-all duration-300'>
-
-                                            <div className='h-[250px] overflow-hidden rounded-t-[3px]'>
-                                                <img src={el.image} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                                    <div key={i} className="px-1 sm:px-2 md:px-4">
+                                        <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
+                                            <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
+                                                <img src={el.image} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                             </div>
-
-                                            <div className='absolute top-3 flex gap-50 px-5 ml-2'>
-                                                <button className='text-[12px] rounded-[3px] bg-blue-600 text-white font-bold tracking-wide p-2 hover:bg-blue-800 transition-colors duration-300'>FEATURED</button>
-                                                <button className='text-[12px] rounded-[3px] bg-gray-700 text-white font-bold tracking-wide p-2 hover:bg-gray-900 transition-colors duration-300'>FOR SALE</button>
+                                            <div className='absolute top-2 left-2 flex gap-2'>
+                                                <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>
+                                                <span className='text-xs sm:text-sm bg-gray-700 text-white px-2 py-1 rounded font-semibold'>FOR SALE</span>
                                             </div>
-
-                                            <div className='absolute right-7 top-56 p-1 bg-white rounded-full hover:scale-110 transition-transform duration-300'>
-                                                <img src={hacker} alt="" className='w-13' />
+                                            <div className='absolute top-40 sm:top-44 md:top-48 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
+                                                <img src={hacker} alt="" className='w-10 sm:w-12' />
                                             </div>
-
-                                            <div className='flex p-5 flex-col justify-start items-start'>
-                                                <h1 className='font-bold hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'>{el.title}</h1>
-                                                <p className='hover:text-gray-600 transition-colors duration-300 cursor-pointer'>{el.address}</p>
+                                            <div className='flex flex-col p-4 gap-1'>
+                                                <h2 className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF] cursor-pointer'>{el.title}</h2>
+                                                <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                             </div>
-
-                                            <div className='flex items-center gap-5 px-5'>
-                                                <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                    <img src={bed2} alt="" />
-                                                    <p className='text-gray-400'>{el.beds}</p>
-                                                </div>
-                                                <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                    <img src={bath2} alt="" />
-                                                    <p className='text-gray-400'>{el.baths}</p>
-                                                </div>
-                                                <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                    <img src={car2} alt="" />
-                                                    <p className='text-gray-400'>{el.garage}</p>
-                                                </div>
-                                                <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                    <img src={rule2} alt="" />
-                                                    <p className='text-gray-400'>{el.area}</p>
-                                                </div>
+                                            <div className='flex flex-wrap justify-between px-4 gap-2 sm:gap-4 mt-2'>
+                                                {[{ img: bed2, text: el.beds }, { img: bath2, text: el.baths }, { img: car2, text: el.garage }, { img: rule2, text: el.area }].map((f, index) => (
+                                                    <div key={index} className='flex items-center gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
+                                                        <img src={f.img} alt="" className='w-4 sm:w-5 md:w-6' />
+                                                        <span className='text-gray-400 text-xs sm:text-sm md:text-base'>{f.text}</span>
+                                                    </div>
+                                                ))}
                                             </div>
-
-                                            <hr className='w-full text-gray-300 mt-5' />
-
-                                            <div className='flex items-center justify-between mt-2 px-5'>
+                                            <hr className='mt-3 border-gray-200' />
+                                            <div className='flex flex-wrap justify-between items-center px-4 py-3'>
                                                 <div className='flex flex-col'>
-                                                    <p className='text-gray-500'><del>{el.oldPrice}</del></p>
-                                                    <p className='font-bold text-[20px] hover:text-[#0061DF] transition-colors duration-300'>{el.newPrice}</p>
+                                                    <span className='text-gray-400 text-sm sm:text-base line-through'>{el.oldPrice}</span>
+                                                    <span className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF]'>{el.newPrice}</span>
                                                 </div>
-                                                <div className="flex gap-5">
-                                                    <img src={resize} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
-                                                    <img src={love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
+                                                <div className='flex gap-2 sm:gap-3'>
+                                                    <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                    <img src={love} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
                                                 </div>
                                             </div>
                                         </div>
@@ -296,6 +281,7 @@ export default function Header() {
                         </div>
                     </div>
                 </section>
+
                 <section>
                     <div className='big-container bg-[#F5F7FC] mt-5   flex justify-center p-4  text-center'>
                         <div className='conatiner '>
@@ -361,24 +347,34 @@ export default function Header() {
                         </div>
                     </div>
                 </section>
-                <section>
-                    <div className='container text-center flex flex-col gap-3 mt-20'>
-                        <h1 className='text-4xl'>Categories</h1>
-                        <p className='text-2xl'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.</p>
-                        <div className='grid grid-cols-1 md:grid-cols-4 gap-5 w-[1300px] mt-10 mx-auto'>
-                            {
-                                category.map((el, index) => (
-                                    <div key={index} className='h-80 flex flex-col items-center justify-center gap-5 bg-cover bg-center hover:scale-105 transition-transform duration-300 cursor-pointer relative group overflow-hidden rounded-lg' style={{ backgroundImage: `url(${el.bg})` }}>
-                                        <div className='absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300'></div>
-                                        <img src={el.img} alt="" className='z-10 group-hover:scale-125 transition-transform duration-300' />
-                                        <h1 className='text-2xl text-[#fff] z-10 group-hover:text-[#0061DF] transition-colors duration-300'>{el.name}</h1>
-                                    </div>
-                                ))
-                            }
-
-                        </div>
+                <section className=' container px-2 sm:px-4 md:px-6 mt-20'>
+                    <div className='text-center flex flex-col gap-3'>
+                        <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold'>Categories</h1>
+                        <p className='text-base sm:text-lg md:text-2xl text-gray-600'>
+                            Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.
+                        </p>
+                    </div>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-8'>
+                        {category.map((el, index) => (
+                            <div
+                                key={index}
+                                className='h-60 sm:h-72 md:h-80 flex flex-col items-center justify-center gap-3 bg-cover bg-center rounded-lg overflow-hidden relative group cursor-pointer transition-transform duration-300 hover:scale-105'
+                                style={{ backgroundImage: `url(${el.bg})` }}
+                            >
+                                <div className='absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300'></div>
+                                <img
+                                    src={el.img}
+                                    alt={el.name}
+                                    className='z-10 w-16 sm:w-20 md:w-24 group-hover:scale-110 transition-transform duration-300'
+                                />
+                                <h2 className='z-10 text-lg sm:text-xl md:text-2xl font-semibold text-white group-hover:text-[#0061DF] transition-colors duration-300'>
+                                    {el.name}
+                                </h2>
+                            </div>
+                        ))}
                     </div>
                 </section>
+
                 <section
                     className="big-container relative bg-cover bg-center h-[680px] mt-10 flex  justify-center"
                     style={{ backgroundImage: `url(${home_infinite})` }}
