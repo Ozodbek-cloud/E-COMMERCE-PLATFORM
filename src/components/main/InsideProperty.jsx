@@ -22,7 +22,7 @@ export default function InsidePropertyPage() {
               <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
             </ul>
             <div>
-              <img onClick={() => setActive(!active)} src={vector} alt="" />
+              <button onClick={() => setActive(!active)}><img src={vector} alt="" /></button>
               {active && (
                 <div className="absolute mt-3 right-60 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
                   <ul className="flex flex-col text-gray-700 font-medium">

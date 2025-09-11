@@ -152,7 +152,7 @@ export default function Header() {
         }
     }
     return (
-        <div>
+        <div className='box-border'>
             <header>
                 <section className='big-container bg-[#0D263B]'>
                     <div className='container'>
@@ -175,19 +175,19 @@ export default function Header() {
                             <input
                                 type="text"
                                 placeholder='Enter an address, neighborhood, city, or ZIP code'
-                                className='w-[500px] py-2 focus:outline-none focus:border-none'
+                                className=' w-[450px] md:w-[500px] py-2 focus:outline-none focus:border-none'
                             />
                         </div>
                         <div className='flex items-center gap-5'>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+                            <button className='p-3 px-10 hidden md:flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={idk} alt="Status" />
                                 Status
                             </button>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+                            <button className='p-3 px-10 hidden md:flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={price} alt="Price" />
                                 Price
                             </button>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+                            <button className='p-3 px-10 hidden md:flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={Set} alt="Advanced" />
                                 Advanced
                             </button>
@@ -289,7 +289,7 @@ export default function Header() {
                                 <h1 className='text-4xl '>Why Choose Us?</h1>
                                 <h2 className='text-2xl text-gray-400'>Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.</h2>
                             </div>
-                            <div className='grid grid-cols-1 md:grid-cols-4 gap-5 w-[1300px] mt-10 mx-auto'>
+                            <div className='grid grid-cols-1  md:grid-cols-4 gap-5  w-[500px]  md:w-[1300px] mt-10 mx-auto'>
                                 <div className='h-80 flex flex-col items-center gap-5 hover:bg-white hover:shadow-lg hover:rounded-lg p-5 transition-all duration-300'>
                                     <div className='hover:scale-110 transition-transform duration-300'>
                                         <img src={discord} alt="" />
@@ -342,7 +342,7 @@ export default function Header() {
                                         <p>to call home.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
 
                         </div>
                     </div>

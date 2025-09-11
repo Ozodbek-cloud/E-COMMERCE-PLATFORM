@@ -77,12 +77,12 @@ function Contact() {
                                 <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
                             </ul>
                             <div>
-                                <img onClick={() => setActive(!active)} src={vector} alt="" />
+                                <button onClick={() => setActive(!active)}><img src={vector} alt="" /></button>
                                 {active && (
                                     <div className="absolute mt-3 right-60 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
                                         <ul className="flex flex-col text-gray-700 font-medium">
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                My Properties
+                                               <Link to="my_properties"> My Properties</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/favourites">Favourites</Link>
