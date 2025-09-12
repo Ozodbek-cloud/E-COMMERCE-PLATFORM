@@ -140,29 +140,30 @@ export default function Proporties() {
                     </div>
                 </section>
                 <section>
-                    <div className='container py-3 flex justify-between'>
-                        <div className='flex items-center py-2 gap-4 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] transition-shadow duration-300'>
+                    <div className='container py-3 flex flex-col items-center justify-center gap-4 md:flex-row md:flex-wrap md:justify-between'>
+                        <div className='flex w-full md:w-auto items-center py-2 gap-4 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] transition-shadow duration-300'>
                             <img src={home} alt="Home" className='ml-3' />
                             <input
                                 type="text"
                                 placeholder='Enter an address, neighborhood, city, or ZIP code'
-                                className='w-[500px] py-2 focus:outline-none focus:border-none'
+                                className='w-full md:w-[500px] py-2 focus:outline-none focus:border-none'
                             />
                         </div>
-                        <div className='flex items-center gap-5'>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+
+                        <div className='flex flex-wrap justify-center md:justify-start items-center gap-3 md:gap-5 w-full md:w-auto'>
+                            <button className='p-3 px-5 md:px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={idk} alt="Status" />
                                 Status
                             </button>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+                            <button className='p-3 px-5 md:px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={price} alt="Price" />
                                 Price
                             </button>
-                            <button className='p-3 px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
+                            <button className='p-3 px-5 md:px-10 flex items-center gap-3 shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] rounded-[3px] hover:shadow-[0px_0px_10px_5px_rgba(0,_97,_223,_0.3)] hover:bg-[#0061DF] hover:text-white transition-all duration-300'>
                                 <img src={Set} alt="Advanced" />
                                 Advanced
                             </button>
-                            <button className='p-3 px-10 flex items-center gap-3 bg-[#0061DF] text-white rounded-[3px] hover:bg-[#004aad] transition-colors duration-300'>
+                            <button className='p-3 px-5 md:px-10 flex items-center gap-3 bg-[#0061DF] text-white rounded-[3px] hover:bg-[#004aad] transition-colors duration-300'>
                                 <img src={search} alt="Search" />
                                 Search
                             </button>
