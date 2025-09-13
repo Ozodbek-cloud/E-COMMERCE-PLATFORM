@@ -14,13 +14,15 @@ import car2 from "../img/car2.png"
 import bed2 from "../img/bed2.png"
 import bath2 from "../img/bath2.png"
 import resize from "../img/expand.png"
-import love from "../img/heart.png"
+import loves from "../img/heart.png"
 import hacker from "../img/Ellipse 11.png"
 import { useNavigate, Link } from 'react-router-dom'
 import Footer from './Footer'
+import axios from 'axios'
 export default function Proporties() {
     const navigate = useNavigate()
     const [active, setActive] = useState(false)
+    const [houses, setHouses] = useState([])
     useEffect(() => {
         const token = localStorage.getItem('token');
         try {
@@ -38,65 +40,12 @@ export default function Proporties() {
         localStorage.removeItem("token")
         navigate("/reg")
     }
-    const apartments = [
-        {
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            image: image,
-            beds: "4 Beds",
-            baths: "5 Bath",
-            garage: "1 Garage",
-            area: "1200 Sq Ft",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo"
-        },
-        {
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            image: images,
-            beds: "4 Beds",
-            baths: "5 Bath",
-            garage: "1 Garage",
-            area: "1200 Sq Ft",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo"
-        },
-        {
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            image: imagess,
-            beds: "4 Beds",
-            baths: "5 Bath",
-            garage: "1 Garage",
-            area: "1200 Sq Ft",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo"
-        },
-        {
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            image: images,
-            beds: "4 Beds",
-            baths: "5 Bath",
-            garage: "1 Garage",
-            area: "1200 Sq Ft",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo"
-        },
+    useEffect(() => {
+        axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
+    })
 
-        {
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            image: imagess,
-            beds: "4 Beds",
-            baths: "5 Bath",
-            garage: "1 Garage",
-            area: "1200 Sq Ft",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo"
-        }
-    ]
 
+    
     return (
         <div>
             <header>
@@ -178,63 +127,44 @@ export default function Proporties() {
 
                     <div className="container mx-auto px-4 py-10">
                         <div>
-                            <p className='mb-5 ml-5 text-gray-500 font-bold font-serif text-2xl'>{apartments.length}  results</p>
+                            <p className='mb-5 ml-5 text-gray-500 font-bold font-serif text-2xl'>{houses.length}  results</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                            {apartments.map((el, i) => (
-
-                                <div key={i} className="px-4">
-
-                                    <div className='h-[500px] rounded-[3px] relative bg-white shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] w-full hover:shadow-[0px_0px_15px_7px_rgba(0,_97,_223,_0.3)] hover:-translate-y-2 transition-all duration-300'>
-
-                                        <div className='h-[250px] overflow-hidden rounded-t-[3px]'>
-                                            <img src={el.image} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                            {houses.map((el, i) => (
+                                <div key={i} className="px-2 sm:px-2 md:px-4">
+                                    <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
+                                        <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
+                                            <img src={`http://localhost:6447/uploads/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                         </div>
-
-                                        <div className='absolute top-3 flex gap-40 px-5 ml-2'>
-                                            <button className='text-[12px] rounded-[3px] bg-blue-600 text-white font-bold tracking-wide p-2 hover:bg-blue-800 transition-colors duration-300'>FEATURED</button>
-                                            <button className='text-[12px] rounded-[3px] bg-gray-700 text-white font-bold tracking-wide p-2 hover:bg-gray-900 transition-colors duration-300'>FOR SALE</button>
+                                        <div className='absolute top-2 left-2 flex gap-2'>
+                                            <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>
+                                            <span className='text-xs sm:text-sm bg-gray-700 text-white px-2 py-1 rounded font-semibold'>{el.listing_type}</span>
                                         </div>
-
-                                        <div className='absolute right-7 top-56 p-1 bg-white rounded-full hover:scale-110 transition-transform duration-300'>
-                                            <img src={hacker} alt="" className='w-13' />
+                                        <div className='absolute top-40 sm:top-44 md:top-48 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
+                                            <img src={hacker} alt="" className='w-10 sm:w-12' />
                                         </div>
-
-                                        <div className='flex p-5 flex-col justify-start items-start'>
-                                            <h1 className='font-bold hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'>{el.title}</h1>
-                                            <p className='hover:text-gray-600 transition-colors duration-300 cursor-pointer'>{el.address}</p>
+                                        <div className='flex flex-col p-4 gap-1'>
+                                            <h2 className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF] cursor-pointer'>{el.title}</h2>
+                                            <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                         </div>
-
-                                        <div className='flex items-center gap-5 px-5'>
-                                            <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                <img src={bed2} alt="" />
-                                                <p className='text-gray-400'>{el.beds}</p>
-                                            </div>
-                                            <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                <img src={bath2} alt="" />
-                                                <p className='text-gray-400'>{el.baths}</p>
-                                            </div>
-                                            <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                <img src={car2} alt="" />
-                                                <p className='text-gray-400'>{el.garage}</p>
-                                            </div>
-                                            <div className='flex flex-col items-center gap-2 hover:scale-110 transition-transform duration-300'>
-                                                <img src={rule2} alt="" />
-                                                <p className='text-gray-400'>{el.area}</p>
-                                            </div>
+                                        <div className='flex flex-wrap justify-between px-4 gap-2 sm:gap-4 mt-2'>
+                                            {[{ img: bed2, text: el.beds }, { img: bath2, text: el.baths }, { img: car2, text: el.garage }, { img: rule2, text: el.area }].map((f, index) => (
+                                                <div key={index} className='flex items-center gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
+                                                    <img src={f.img} alt="" className='w-4 sm:w-5 md:w-6' />
+                                                    <span className='text-gray-400 text-xs sm:text-sm md:text-base'>{f.text}</span>
+                                                </div>
+                                            ))}
                                         </div>
-
-                                        <hr className='w-full text-gray-300 mt-5' />
-
-                                        <div className='flex items-center justify-between mt-2 px-5'>
+                                        <hr className='mt-3 border-gray-200' />
+                                        <div className='flex flex-wrap justify-between items-center px-4 py-3'>
                                             <div className='flex flex-col'>
-                                                <p className='text-gray-500'><del>{el.oldPrice}</del></p>
-                                                <p className='font-bold text-[20px] hover:text-[#0061DF] transition-colors duration-300'>{el.newPrice}</p>
+                                                <span className='text-gray-400 text-sm sm:text-base line-through'>{el.price}</span>
+                                                <span className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF]'>{el.discount}</span>
                                             </div>
-                                            <div className="flex gap-5">
-                                                <img src={resize} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
-                                                <img src={love} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
+                                            <div className='flex gap-2 sm:gap-3'>
+                                                <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                <img src={loves} alt="love" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
                                             </div>
                                         </div>
                                     </div>
