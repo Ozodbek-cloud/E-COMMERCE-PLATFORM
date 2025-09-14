@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/prop" element={<Proporties />} />
         <Route path="/new_property" element={<NewPropety />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/property" element={<InsidePropertyPage />} />
+        <Route path="/property/:id" element={<InsidePropertyPage />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/my_properties" element={<MyProperties />} />
       </Routes>

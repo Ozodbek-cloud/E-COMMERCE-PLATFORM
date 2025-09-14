@@ -18,22 +18,27 @@ function Login() {
     };
 
     const submit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            let data = await axios.post('http://localhost:6447/auth/login', {
-                email: email,
+            let res = await axios.post('http://localhost:6447/auth/login', {
+                email,
                 password: pass
-            })
+            });
+
+            const { token, data } = res.data; 
+
+            localStorage.setItem("token", token.accessToken);
+            localStorage.setItem("id", data.id);
+
             setSuccessOpen(true);
-            navigate("/main")
-            localStorage.setItem("token", data.data.token.accessToken)
-            
+            navigate("/main");
         } catch (error) {
             console.error("Error:", error.response?.data || error.message);
             setErrorMessage(error.response?.data?.message || "Something went wrong");
             setErrorOpen(true);
         }
-    }
+    };
+
 
     return (
         <div className="login-container">

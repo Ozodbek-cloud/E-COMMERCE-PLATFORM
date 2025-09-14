@@ -45,7 +45,7 @@ export default function Proporties() {
     })
 
 
-    
+
     return (
         <div>
             <header>
@@ -149,10 +149,12 @@ export default function Proporties() {
                                             <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                         </div>
                                         <div className='flex flex-wrap justify-between px-4 gap-2 sm:gap-4 mt-2'>
-                                            {[{ img: bed2, text: el.beds }, { img: bath2, text: el.baths }, { img: car2, text: el.garage }, { img: rule2, text: el.area }].map((f, index) => (
-                                                <div key={index} className='flex items-center gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
+                                            {[{ img: bed2, text: el.features?.beds ?? "-", label: "Beds" }, { img: bath2, text: el.features?.baths ?? "-", label: "Baths" }, { img: car2, text: el.features?.parking ?? "-", label: "Parking" }, { img: rule2, text: el.features?.size ?? "-", label: "size" }].map((f, index) => (
+                                                <div key={index} className='flex items-center flex-col gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
                                                     <img src={f.img} alt="" className='w-4 sm:w-5 md:w-6' />
-                                                    <span className='text-gray-400 text-xs sm:text-sm md:text-base'>{f.text}</span>
+                                                    <span className='text-gray-400 text-xs sm:text-sm md:text-base'>
+                                                        {f.label}: {f.text}
+                                                    </span>
                                                 </div>
                                             ))}
                                         </div>
@@ -163,7 +165,7 @@ export default function Proporties() {
                                                 <span className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF]'>{el.discount}</span>
                                             </div>
                                             <div className='flex gap-2 sm:gap-3'>
-                                                <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' onClick={() => navigate(`/property/${el.id}`)} />
                                                 <img src={loves} alt="love" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
                                             </div>
                                         </div>

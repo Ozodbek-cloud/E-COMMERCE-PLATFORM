@@ -14,12 +14,13 @@ import bath from "../img/bath.png"
 import image from "../img/images.png"
 import images from "../img/images (1).png"
 import imagess from "../img/images (2).png"
+import love_active from "../img/love.png"
 import rule2 from "../img/ruler2.png"
 import car2 from "../img/car2.png"
 import bed2 from "../img/bed2.png"
 import bath2 from "../img/bath2.png"
 import resize from "../img/expand.png"
-import loves from "../img/heart.png"
+import lovess from "../img/heart.png"
 import discord from "../img/discord.png"
 import home2 from "../img/Vector (2).png"
 import calculator from "../img/calculator.png"
@@ -45,7 +46,7 @@ export default function Header() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
     const [active, setActive] = useState(false)
-    const [love, setLove] = useState(false)
+    const [forLike, setforLike] = useState("")
     const [houses, setHouses] = useState([])
     useEffect(() => {
         if (!token) {
@@ -57,11 +58,44 @@ export default function Header() {
     useEffect(() => {
         axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
     })
-    console.log(houses)
+
+
     function exit() {
         localStorage.removeItem("token")
         navigate("/reg")
     }
+
+    const [loves, setLoves] = useState(Array(houses.length).fill(true))
+   let id = localStorage.getItem("id")
+    const handleLoveClick = async (i, houseId) => {
+        const newLoves = [...loves];
+        newLoves[i] = !newLoves[i];
+        setLoves(newLoves);
+        setforLike(houseId);
+
+        try {
+            if (newLoves[i]) {
+                const res = await axios.post("http://localhost:6447/likes/create", {
+                    like: true,
+                    userId: id,
+                    accommodationId: houseId,
+                });
+                console.log("✅ Like created:", res.data);
+            } else {
+                const res = await axios.delete("http://localhost:6447/likes/delete", {
+                    data: {
+                        userId: id,
+                        accommodationId: houseId,
+                    },
+                });
+                console.log("❌ Like removed:", res.data);
+            }
+        } catch (err) {
+            console.error("Like error:", err.response?.data || err.message);
+        }
+    };
+
+
 
     const category = [
         {
@@ -252,13 +286,16 @@ export default function Header() {
                                                 <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                             </div>
                                             <div className='flex flex-wrap justify-between px-4 gap-2 sm:gap-4 mt-2'>
-                                                {[{ img: bed2, text: el.beds }, { img: bath2, text: el.baths }, { img: car2, text: el.garage }, { img: rule2, text: el.area }].map((f, index) => (
-                                                    <div key={index} className='flex items-center gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
+                                                {[{ img: bed2, text: el.features?.beds ?? "-", label: "Beds" }, { img: bath2, text: el.features?.baths ?? "-", label: "Baths" }, { img: car2, text: el.features?.parking ?? "-", label: "Parking" }, { img: rule2, text: el.features?.size ?? "-", label: "size" }].map((f, index) => (
+                                                    <div key={index} className='flex items-center flex-col gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
                                                         <img src={f.img} alt="" className='w-4 sm:w-5 md:w-6' />
-                                                        <span className='text-gray-400 text-xs sm:text-sm md:text-base'>{f.text}</span>
+                                                        <span className='text-gray-400 text-xs sm:text-sm md:text-base'>
+                                                            {f.label}: {f.text}
+                                                        </span>
                                                     </div>
                                                 ))}
                                             </div>
+
                                             <hr className='mt-3 border-gray-200' />
                                             <div className='flex flex-wrap justify-between items-center px-4 py-3'>
                                                 <div className='flex flex-col'>
@@ -266,8 +303,8 @@ export default function Header() {
                                                     <span className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF]'>{el.discount}</span>
                                                 </div>
                                                 <div className='flex gap-2 sm:gap-3'>
-                                                    <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
-                                                    <img src={loves} alt="love" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                    <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' onClick={() => navigate(`/property/${el.id}`)} />
+                                                    <img onClick={() => handleLoveClick(i, el.id)} src={loves[i] ? love_active : lovess} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
                                                 </div>
                                             </div>
                                         </div>
@@ -354,7 +391,7 @@ export default function Header() {
                     <div className='mt-8'>
                         <Slider {...settings2}>
                             {category.map((el, index) => (
-                                <div key={index} className="px-2"> 
+                                <div key={index} className="px-2">
                                     <div
                                         className='h-60 sm:h-72 md:h-80 flex flex-col items-center justify-center gap-10 bg-cover bg-center rounded-lg overflow-hidden relative group cursor-pointer transition-transform duration-300 hover:scale-105'
                                         style={{ backgroundImage: `url(${el.bg})` }}
@@ -416,10 +453,12 @@ export default function Header() {
                                                 <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                             </div>
                                             <div className='flex flex-wrap justify-between px-4 gap-2 sm:gap-4 mt-2'>
-                                                {[{ img: bed2, text: el.beds }, { img: bath2, text: el.baths }, { img: car2, text: el.garage }, { img: rule2, text: el.area }].map((f, index) => (
-                                                    <div key={index} className='flex items-center gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
+                                                {[{ img: bed2, text: el.features?.beds ?? "-", label: "Beds" }, { img: bath2, text: el.features?.baths ?? "-", label: "Baths" }, { img: car2, text: el.features?.parking ?? "-", label: "Parking" }, { img: rule2, text: el.features?.size ?? "-", label: "size" }].map((f, index) => (
+                                                    <div key={index} className='flex items-center flex-col gap-1 sm:gap-2 hover:scale-105 transition-transform duration-300'>
                                                         <img src={f.img} alt="" className='w-4 sm:w-5 md:w-6' />
-                                                        <span className='text-gray-400 text-xs sm:text-sm md:text-base'>{f.text}</span>
+                                                        <span className='text-gray-400 text-xs sm:text-sm md:text-base'>
+                                                            {f.label}: {f.text}
+                                                        </span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -430,8 +469,8 @@ export default function Header() {
                                                     <span className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF]'>{el.discount}</span>
                                                 </div>
                                                 <div className='flex gap-2 sm:gap-3'>
-                                                    <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
-                                                    <img src={loves} alt="love" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                    <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' onClick={() => navigate(`/property/${el.id}`)} />
+                                                    <img onClick={() => handleLoveClick(i, el.id)} src={loves[i] ? love_active : lovess} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
                                                 </div>
                                             </div>
                                         </div>
