@@ -1,54 +1,163 @@
-import React, { useState } from 'react'
-import logo from "../img/logo.png"
-import vector from "../img/Vector.png"
-import Footer from './Footer'
-import { Link } from 'react-router-dom'
-import { useUserStore } from '../Store/UserStore'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import logo from "../img/logo.png";
+import vector from "../img/Vector.png";
 
 export default function MyProfile() {
-    const [active, setActive] = useState(false)
-    const [tab, setTab] = useState('info')
-    const user = useUserStore((state) => state.user);
+    const [active, setActive] = useState(false);
+    const [tab, setTab] = useState('info');
+    const [user, setUser] = useState(null);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: '',
+        avatar: ''
+    });
 
-    const exit = () => {
-        console.log('Chiqish bosildi')
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            const userData = JSON.parse(storedUser);
+            setUser(userData);
+            setFormData({
+                firstName: userData.firstName || '',
+                lastName: userData.lastName || '',
+                email: userData.email || '',
+                role: userData.role || '',
+                avatar: userData.avatar || ''
+            });
+        }
+    }, []);
+
+    const handleExit = () => {
+        console.log('Chiqish bosildi');
+        // Add actual logout logic here
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Update user data logic here
+        const updatedUser = { ...user, ...formData };
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        alert('Profile updated successfully!');
+    };
+
+    if (!user) {
+        return (
+            <div className="min-h-screen bg-[#f5f7fa] flex items-center justify-center">
+                <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+                    <p className="text-lg mb-4">Please login to view your profile</p>
+                    <Link 
+                        to="/log" 
+                        className="bg-[#0061DF] text-white px-6 py-2 rounded-full font-semibold inline-block hover:bg-blue-700 transition-colors"
+                    >
+                        Login
+                    </Link>
+                </div>
+            </div>
+        );
     }
 
     return (
         <div className="min-h-screen bg-[#f5f7fa] flex flex-col">
-            <header>
+            <header className="sticky top-0 z-50 shadow-md">
                 <section className='big-container bg-[#0D263B]'>
                     <div className='container'>
                         <nav className='flex justify-between items-center py-5'>
-                            <img src={logo} alt="Logo" />
-                            <ul className='hidden md:flex gap-5'>
-                                <li className='font-bold text-[#0061DF] hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/main">Home</Link></li>
-                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/prop">Properties</Link></li>
-                                <li className='font-bold text-white hover:text-[#0061DF] transition-colors duration-300 cursor-pointer'><Link to="/contact">Contact</Link></li>
+                            <Link to="/main">
+                                <img src={logo} alt="Logo" className="h-8" />
+                            </Link>
+                            <ul className='hidden md:flex gap-8'>
+                                <li>
+                                    <Link 
+                                        to="/main" 
+                                        className='font-semibold text-white hover:text-[#0061DF] transition-colors duration-300'
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link 
+                                        to="/prop" 
+                                        className='font-semibold text-white hover:text-[#0061DF] transition-colors duration-300'
+                                    >
+                                        Properties
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link 
+                                        to="/contact" 
+                                        className='font-semibold text-white hover:text-[#0061DF] transition-colors duration-300'
+                                    >
+                                        Contact
+                                    </Link>
+                                </li>
                             </ul>
                             <div className='relative'>
-                                <button onClick={() => setActive(!active)}><img src={vector} alt="" /></button>
+                                <button 
+                                    onClick={() => setActive(!active)}
+                                    className="p-2 rounded-full hover:bg-[#1e3856] transition-colors"
+                                >
+                                    <img src={vector} alt="Menu" className="h-6 w-6" />
+                                </button>
                                 {active && (
-                                    <div className="absolute mt-3 right-0 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 z-50">
+                                    <div className="absolute mt-3 right-0 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 z-50">
                                         <ul className="flex flex-col text-gray-700 font-medium">
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/my_properties">My Properties</Link>
+                                            <li>
+                                                <Link 
+                                                    to="/my_properties" 
+                                                    className="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                                    onClick={() => setActive(false)}
+                                                >
+                                                    My Properties
+                                                </Link>
                                             </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/favourites">Favourites</Link>
+                                            <li>
+                                                <Link 
+                                                    to="/favourites" 
+                                                    className="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                                    onClick={() => setActive(false)}
+                                                >
+                                                    Favourites
+                                                </Link>
                                             </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/my_profile">My Profile</Link>
+                                            <li>
+                                                <Link 
+                                                    to="/my_profile" 
+                                                    className="block px-5 py-3 bg-blue-50 text-blue-600"
+                                                    onClick={() => setActive(false)}
+                                                >
+                                                    My Profile
+                                                </Link>
                                             </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/new_property">Add New Properties</Link>
+                                            <li>
+                                                <Link 
+                                                    to="/new_property" 
+                                                    className="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                                    onClick={() => setActive(false)}
+                                                >
+                                                    Add New Properties
+                                                </Link>
                                             </li>
-                                            <button
-                                                onClick={exit}
-                                                className="px-5 py-3 text-left hover:bg-gradient-to-r from-red-50 to-red-100 hover:text-red-600 transition-colors cursor-pointer"
-                                            >
-                                                Chiqish
-                                            </button>
+                                            <li>
+                                                <button
+                                                    onClick={handleExit}
+                                                    className="w-full text-left px-5 py-3 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                                >
+                                                    Logout
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 )}
@@ -58,59 +167,134 @@ export default function MyProfile() {
                 </section>
             </header>
 
-            <main className="flex-1 container mx-auto py-12">
-                <div className="bg-white rounded-3xl shadow-lg p-8 max-w-3xl mx-auto">
-                    <h2 className="text-2xl font-bold mb-6 text-center text-[#0D263B]">My Profile</h2>
+            <main className="flex-1 container mx-auto py-8 px-4">
+                <div className="bg-white rounded-3xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-[#0D263B]">My Profile</h2>
 
-                    <div className="flex justify-center gap-4 mb-6">
+                    <div className="flex justify-center gap-4 mb-8">
                         <button
-                            className={`px-6 py-2 rounded-full font-semibold ${tab === 'info' ? 'bg-[#0061DF] text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`px-6 py-2 rounded-full font-semibold transition-colors ${tab === 'info' 
+                                ? 'bg-[#0061DF] text-white shadow-md' 
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                             onClick={() => setTab('info')}
                         >
                             My Info
                         </button>
                         <button
-                            className={`px-6 py-2 rounded-full font-semibold ${tab === 'update' ? 'bg-[#0061DF] text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`px-6 py-2 rounded-full font-semibold transition-colors ${tab === 'update' 
+                                ? 'bg-[#0061DF] text-white shadow-md' 
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                             onClick={() => setTab('update')}
                         >
                             Update Profile
                         </button>
                     </div>
 
-                    <div>
+                    <div className="pt-4">
                         {tab === 'info' && (
-                            <div className="flex flex-col items-center space-y-4 text-gray-700">
-                                <img src={user.avatar || "https://i.pravatar.cc/150?img=1"} alt="Avatar" className="w-28 h-28 rounded-full object-cover mb-4" />
-                                <p><span className="font-semibold">First Name:</span> {user.firstName}</p>
-                                <p><span className="font-semibold">Last Name:</span> {user.lastName}</p>
-                                <p><span className="font-semibold">Email:</span> {user.email}</p>
-                                <p><span className="font-semibold">Role:</span> {user.role}</p>
+                            <div className="flex flex-col items-center space-y-5 text-gray-700">
+                                <div className="relative">
+                                    <img 
+                                        src={user.avatar || defaultAvatar} 
+                                        alt="Avatar" 
+                                        className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md" 
+                                    />
+                                </div>
+                                <div className="w-full max-w-md space-y-4 bg-gray-50 p-6 rounded-2xl">
+                                    <div className="flex justify-between items-center border-b pb-2">
+                                        <span className="font-semibold text-gray-600">First Name:</span>
+                                        <span className="text-gray-800">{user.firstName}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center border-b pb-2">
+                                        <span className="font-semibold text-gray-600">Last Name:</span>
+                                        <span className="text-gray-800">{user.lastName}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center border-b pb-2">
+                                        <span className="font-semibold text-gray-600">Email:</span>
+                                        <span className="text-gray-800">{user.email}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center border-b pb-2">
+                                        <span className="font-semibold text-gray-600">Role:</span>
+                                        <span className="text-gray-800 capitalize">{user.role}</span>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
                         {tab === 'update' && (
-                            <form className="space-y-4">
-                                <div>
-                                    <label className="block text-gray-700 font-medium mb-1">First Name</label>
-                                    <input type="text" placeholder="First Name" defaultValue={user.firstName} className="w-full border border-gray-300 rounded-lg p-2" />
+                            <form className="space-y-5 max-w-md mx-auto" onSubmit={handleSubmit}>
+                                <div className="flex justify-center">
+                                    <div className="relative">
+                                        <img 
+                                            src={formData.avatar || defaultAvatar} 
+                                            alt="Avatar" 
+                                            className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md mb-4" 
+                                        />
+                                    </div>
                                 </div>
+                                
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Last Name</label>
-                                    <input type="text" placeholder="Last Name" defaultValue={user.lastName} className="w-full border border-gray-300 rounded-lg p-2" />
+                                    <label className="block text-gray-700 font-medium mb-2">First Name</label>
+                                    <input 
+                                        type="text" 
+                                        name="firstName"
+                                        value={formData.firstName}
+                                        onChange={handleInputChange}
+                                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" 
+                                    />
                                 </div>
+                                
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Email</label>
-                                    <input type="email" placeholder="Email" defaultValue={user.email} className="w-full border border-gray-300 rounded-lg p-2" />
+                                    <label className="block text-gray-700 font-medium mb-2">Last Name</label>
+                                    <input 
+                                        type="text" 
+                                        name="lastName"
+                                        value={formData.lastName}
+                                        onChange={handleInputChange}
+                                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" 
+                                    />
                                 </div>
+                                
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Role</label>
-                                    <input type="text" placeholder="Role" defaultValue={user.role} className="w-full border border-gray-300 rounded-lg p-2" />
+                                    <label className="block text-gray-700 font-medium mb-2">Email</label>
+                                    <input 
+                                        type="email" 
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" 
+                                    />
                                 </div>
+                                
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Avatar URL</label>
-                                    <input type="text" placeholder="Avatar URL" defaultValue={user.avatar} className="w-full border border-gray-300 rounded-lg p-2" />
+                                    <label className="block text-gray-700 font-medium mb-2">Role</label>
+                                    <input 
+                                        type="text" 
+                                        name="role"
+                                        value={formData.role}
+                                        onChange={handleInputChange}
+                                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" 
+                                    />
                                 </div>
-                                <button type="submit" className="bg-[#0061DF] text-white px-6 py-2 rounded-full font-semibold mt-2">Update</button>
+                                
+                                <div>
+                                    <label className="block text-gray-700 font-medium mb-2">Avatar URL</label>
+                                    <input 
+                                        type="text" 
+                                        name="avatar"
+                                        value={formData.avatar}
+                                        onChange={handleInputChange}
+                                        placeholder="Paste image URL here"
+                                        className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" 
+                                    />
+                                </div>
+                                
+                                <button 
+                                    type="submit" 
+                                    className="w-full bg-[#0061DF] text-white px-6 py-3 rounded-xl font-semibold mt-4 hover:bg-blue-700 transition-colors shadow-md"
+                                >
+                                    Update Profile
+                                </button>
                             </form>
                         )}
                     </div>
@@ -119,5 +303,5 @@ export default function MyProfile() {
 
             <Footer />
         </div>
-    )
+    );
 }
