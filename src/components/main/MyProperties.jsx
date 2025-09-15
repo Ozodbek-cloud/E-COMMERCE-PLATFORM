@@ -67,7 +67,7 @@ export default function MyProperties() {
                                                 <Link to="/favourites">Favourites</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                My Profile
+                                                <Link to="/my_profile">My Profile</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/new_property">Add New Properties</Link>

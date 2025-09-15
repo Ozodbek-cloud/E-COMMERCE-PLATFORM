@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Alert, Snackbar } from '@mui/material';
 import '../../../public/style.css';
+import { useUserStore } from '../Store/UserStore';
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -11,7 +12,7 @@ function Login() {
     const [successOpen, setSuccessOpen] = useState(false);
     const [errorOpen, setErrorOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
+    const setUser = useUserStore((state) => state.setUser);
     const handleClose = () => {
         setErrorOpen(false);
         setSuccessOpen(false);
@@ -25,11 +26,11 @@ function Login() {
                 password: pass
             });
 
-            const { token, data } = res.data; 
+            const { token, data } = res.data;
 
             localStorage.setItem("token", token.accessToken);
             localStorage.setItem("id", data.id);
-
+            setUser(data);
             setSuccessOpen(true);
             navigate("/main");
         } catch (error) {

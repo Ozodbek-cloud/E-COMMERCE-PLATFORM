@@ -11,9 +11,6 @@ import rule from "../img/ruler.png"
 import car from "../img/car.png"
 import bed from "../img/bed.png"
 import bath from "../img/bath.png"
-import image from "../img/images.png"
-import images from "../img/images (1).png"
-import imagess from "../img/images (2).png"
 import love_active from "../img/love.png"
 import rule2 from "../img/ruler2.png"
 import car2 from "../img/car2.png"
@@ -25,13 +22,6 @@ import discord from "../img/discord.png"
 import home2 from "../img/Vector (2).png"
 import calculator from "../img/calculator.png"
 import maps from "../img/maps.png"
-import build from "../img/unsplash_5q1KnUjtjaM.png"
-import build3 from "../img/unsplash_b_79nOqf95I.png"
-import build2 from "../img/unsplash_ZtC4_rPCRXA.png"
-import home3 from "../img/home 1.png"
-import apartment from "../img/apartment.png"
-import home5 from "../img/Vector (3).png"
-import office from "../img/business-and-trade.png"
 import home_infinite from "../img/photo_2025-09-04_23-02-37.jpg"
 import hacker from "../img/Ellipse 11.png"
 import Slider from 'react-slick'
@@ -48,6 +38,9 @@ export default function Header() {
     const [active, setActive] = useState(false)
     const [forLike, setforLike] = useState("")
     const [houses, setHouses] = useState([])
+    const [likesId, setLikeId] = useState("")
+    const [isFavourite, setIsFavourite] = useState("")
+    const [category, setCategory] = useState([])
     useEffect(() => {
         if (!token) {
             navigate("/reg");
@@ -55,70 +48,46 @@ export default function Header() {
             navigate("/main");
         }
     }, [token, navigate]);
+
     useEffect(() => {
         axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
-    })
+    },[])
+    useEffect(() => {
+        axios.get('http://localhost:6447/category/all').then(data => setCategory(data.data.data))
+    },[])
 
-
+     console.log(category)
     function exit() {
         localStorage.removeItem("token")
         navigate("/reg")
     }
-
+    
     const [loves, setLoves] = useState(Array(houses.length).fill(true))
-   let id = localStorage.getItem("id")
+    let id = localStorage.getItem("id")
     const handleLoveClick = async (i, houseId) => {
         const newLoves = [...loves];
         newLoves[i] = !newLoves[i];
         setLoves(newLoves);
         setforLike(houseId);
-
+    
         try {
             if (newLoves[i]) {
-                const res = await axios.post("http://localhost:6447/likes/create", {
+                let res = await axios.post("http://localhost:6447/likes/create", {
                     like: true,
                     userId: id,
                     accommodationId: houseId,
                 });
-                console.log("✅ Like created:", res.data);
+                setIsFavourite(res.data.data.like)     
+                setLikeId(res.data.data.id);
             } else {
-                const res = await axios.delete("http://localhost:6447/likes/delete", {
-                    data: {
-                        userId: id,
-                        accommodationId: houseId,
-                    },
-                });
-                console.log("❌ Like removed:", res.data);
+                await axios.delete(`http://localhost:6447/likes/${likesId}/delete`);
             }
         } catch (err) {
             console.error("Like error:", err.response?.data || err.message);
         }
+
     };
 
-
-
-    const category = [
-        {
-            name: "Home",
-            img: home3,
-            bg: build
-        },
-        {
-            name: "Apartment",
-            img: apartment,
-            bg: build2
-        },
-        {
-            name: "Office",
-            img: office,
-            bg: build3
-        },
-        {
-            name: "Home",
-            img: home5,
-            bg: build
-        }
-    ]
 
     const settings = {
         dots: true,
@@ -171,7 +140,7 @@ export default function Header() {
                                     <div className="absolute mt-3 right-60 w-56 bg-white border border-gray-200 rounded-2xl  shadow-2xl overflow-hidden transition-all duration-300">
                                         <ul className="flex flex-col text-gray-700 font-medium">
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/my_properties">My Properties</Link>
+                                                <Link to="/my_properties"><Link to="/my_profile">My Profile</Link></Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/favourites">Favourites</Link>
@@ -272,16 +241,16 @@ export default function Header() {
                                     <div key={i} className="px-2 sm:px-2 md:px-4">
                                         <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                             <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                                <img src={`http://localhost:6447/uploads/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                                <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                             </div>
                                             <div className='absolute top-2 left-2 flex gap-2'>
                                                 <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>
                                                 <span className='text-xs sm:text-sm bg-gray-700 text-white px-2 py-1 rounded font-semibold'>{el.listing_type}</span>
                                             </div>
-                                            <div className='absolute top-40 sm:top-44 md:top-48 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
+                                            <div className='absolute top-40 sm:top-44 md:top-53 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
                                                 <img src={hacker} alt="" className='w-10 sm:w-12' />
                                             </div>
-                                            <div className='flex flex-col p-4 gap-1'>
+                                            <div className='flex flex-col p-4 py-6 gap-1'>
                                                 <h2 className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF] cursor-pointer'>{el.title}</h2>
                                                 <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                             </div>
@@ -394,11 +363,11 @@ export default function Header() {
                                 <div key={index} className="px-2">
                                     <div
                                         className='h-60 sm:h-72 md:h-80 flex flex-col items-center justify-center gap-10 bg-cover bg-center rounded-lg overflow-hidden relative group cursor-pointer transition-transform duration-300 hover:scale-105'
-                                        style={{ backgroundImage: `url(${el.bg})` }}
+                                        style={{ backgroundImage: `url(http://localhost:6447/uploads/images/${el.img})` }}
                                     >
                                         <div className='absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300'></div>
                                         <img
-                                            src={el.img}
+                                            src={`http://localhost:6447/uploads/icon_imges/${el.icon_img}`}
                                             alt={el.name}
                                             className='z-10 w-16 sm:w-20 md:w-24 group-hover:scale-110 transition-transform duration-300'
                                         />
@@ -439,7 +408,7 @@ export default function Header() {
                                     <div key={i} className="px-2 sm:px-2 md:px-4">
                                         <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                             <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                                <img src={`http://localhost:6447/uploads/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                                <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                             </div>
                                             <div className='absolute top-2 left-2 flex gap-2'>
                                                 <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>

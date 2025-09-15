@@ -10,6 +10,7 @@ import Contact from "./components/main/Contact";
 import InsidePropertyPage from "./components/main/InsideProperty";
 import Favourites from "./components/main/Favourites";
 import MyProperties from "./components/main/MyProperties";
+import MyProfile from "./components/main/MyProfile";
 export default function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/property/:id" element={<InsidePropertyPage />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/my_properties" element={<MyProperties />} />
+        <Route path="/my_profile" element={<MyProfile />} />
       </Routes>
     </Router>
   );

@@ -62,7 +62,7 @@ export default function InsidePropertyPage() {
                       <Link to="/favourites">Favourites</Link>
                     </li>
                     <li className="px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">
-                      My Profile
+                     <Link to="/my_profile">My Profile</Link>
                     </li>
                     <li className="px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">
                       <Link to="/new_property">Add New Properties</Link>
@@ -86,15 +86,15 @@ export default function InsidePropertyPage() {
         {/* Images */}
         <div className="grid grid-cols-3 gap-4">
           <img
-            src={`http://localhost:6447/uploads/${house.img[0]}`}
+            src={`http://localhost:6447/uploads/house_images/${house.img[0]}`}
             alt=""
             className="col-span-2 w-full h-96 object-cover rounded-xl shadow-lg"
           />
           <div className="grid grid-cols-2 gap-2">
-            <img src={`http://localhost:6447/uploads/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <img src={`http://localhost:6447/uploads/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <img src={`http://localhost:6447/uploads/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <div className="w-full h-48 bg-gray-200 flex items-center justify-center rounded-lg shadow font-semibold text-gray-600 text-lg">
+            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <div className="w-full h-48 bg-gray-200 flex items-center  justify-center rounded-lg shadow font-semibold text-gray-600 text-lg" style={{ backgroundImage: `url(http://localhost:6447/uploads/house_images/${house.img[0]})` }}>
               +15
             </div>
           </div>
@@ -191,19 +191,18 @@ export default function InsidePropertyPage() {
           </div>
         </div>
 
-        {/* Schedule a Tour */}
         <div className="mt-10 bg-white p-6 rounded-xl shadow-lg">
           <h2 className="font-semibold text-xl mb-4">Schedule A Tour</h2>
           <div className="flex gap-4 mb-4">
-            <input type="date" className="border p-2 rounded w-1/2" />
-            <input type="time" className="border p-2 rounded w-1/2" defaultValue="10:00" />
+            <input type="date" className=" p-2 rounded w-1/2" />
+            <input type="time" className=" p-2 rounded w-1/2" defaultValue="10:00" />
           </div>
           <div className="grid grid-cols-3 gap-4 mb-4">
-            <input type="text" placeholder="Name" className="border p-2 rounded" />
-            <input type="text" placeholder="Phone" className="border p-2 rounded" />
-            <input type="email" placeholder="Email" className="border p-2 rounded" />
+            <input type="text" placeholder="Name" className=" p-2 rounded" />
+            <input type="text" placeholder="Phone" className=" p-2 rounded" />
+            <input type="email" placeholder="Email" className=" p-2 rounded" />
           </div>
-          <textarea placeholder="Enter Your Message" className="border p-2 rounded w-full mb-4"></textarea>
+          <textarea placeholder="Enter Your Message" className=" p-2 rounded w-full mb-4"></textarea>
           <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
             Submit a tour request
           </button>
@@ -228,10 +227,10 @@ export default function InsidePropertyPage() {
         <div className="mt-10 bg-white p-6 rounded-xl shadow-lg">
           <h2 className="font-semibold text-xl mb-3">Write a Review</h2>
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <input type="text" placeholder="Name" className="border p-2 rounded" />
-            <input type="email" placeholder="Email" className="border p-2 rounded" />
+            <input type="text" placeholder="Name" className=" p-2 rounded" />
+            <input type="email" placeholder="Email" className=" p-2 rounded" />
           </div>
-          <textarea placeholder="Enter Your Message" className="border p-2 rounded w-full mb-4"></textarea>
+          <textarea placeholder="Enter Your Message" className=" p-2 rounded w-full mb-4"></textarea>
           <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
             Send your review
           </button>

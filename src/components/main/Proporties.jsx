@@ -6,15 +6,13 @@ import search from "../img/001-loupe.png"
 import price from "../img/price 1.png"
 import Set from "../img/price 1.png"
 import vector from "../img/Vector.png"
-import image from "../img/images.png"
-import images from "../img/images (1).png"
-import imagess from "../img/images (2).png"
+import love_active from "../img/love.png"
 import rule2 from "../img/ruler2.png"
 import car2 from "../img/car2.png"
 import bed2 from "../img/bed2.png"
 import bath2 from "../img/bath2.png"
 import resize from "../img/expand.png"
-import loves from "../img/heart.png"
+import lovess from "../img/heart.png"
 import hacker from "../img/Ellipse 11.png"
 import { useNavigate, Link } from 'react-router-dom'
 import Footer from './Footer'
@@ -22,7 +20,10 @@ import axios from 'axios'
 export default function Proporties() {
     const navigate = useNavigate()
     const [active, setActive] = useState(false)
+    const [forLike, setforLike] = useState("")
     const [houses, setHouses] = useState([])
+    const [likesId, setLikeId] = useState("")
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         try {
@@ -44,6 +45,31 @@ export default function Proporties() {
         axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
     })
 
+    const [loves, setLoves] = useState(Array(houses.length).fill(true))
+    let id = localStorage.getItem("id")
+    const handleLoveClick = async (i, houseId) => {
+        const newLoves = [...loves];
+        newLoves[i] = !newLoves[i];
+        setLoves(newLoves);
+        setforLike(houseId);
+
+        try {
+            if (newLoves[i]) {
+                let res = await axios.post("http://localhost:6447/likes/create", {
+                    like: true,
+                    userId: id,
+                    accommodationId: houseId,
+                });
+                setIsFavourite(res.data.data.like)
+                setLikeId(res.data.data.id);
+            } else {
+                await axios.delete(`http://localhost:6447/likes/${likesId}/delete`);
+            }
+        } catch (err) {
+            console.error("Like error:", err.response?.data || err.message);
+        }
+
+    };
 
 
     return (
@@ -70,7 +96,7 @@ export default function Proporties() {
                                                 <Link to="/favourites">Favourites</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                My Profile
+                                                <Link to="/my_profile">My Profile</Link>
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/new_property">Add New Properties</Link>
@@ -135,16 +161,16 @@ export default function Proporties() {
                                 <div key={i} className="px-2 sm:px-2 md:px-4">
                                     <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                         <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                            <img src={`http://localhost:6447/uploads/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                            <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                         </div>
                                         <div className='absolute top-2 left-2 flex gap-2'>
                                             <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>
                                             <span className='text-xs sm:text-sm bg-gray-700 text-white px-2 py-1 rounded font-semibold'>{el.listing_type}</span>
                                         </div>
-                                        <div className='absolute top-40 sm:top-44 md:top-48 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
+                                        <div className='absolute top-35 sm:top-44 md:top-53 right-2 bg-white rounded-full p-1 hover:scale-110 transition-transform duration-300'>
                                             <img src={hacker} alt="" className='w-10 sm:w-12' />
                                         </div>
-                                        <div className='flex flex-col p-4 gap-1'>
+                                        <div className='flex flex-col p-4 py-8 gap-1'>
                                             <h2 className='font-bold text-base sm:text-lg md:text-xl hover:text-[#0061DF] cursor-pointer'>{el.title}</h2>
                                             <p className='text-gray-500 text-sm sm:text-base md:text-base hover:text-gray-700 cursor-pointer'>{el.address}</p>
                                         </div>
@@ -166,7 +192,7 @@ export default function Proporties() {
                                             </div>
                                             <div className='flex gap-2 sm:gap-3'>
                                                 <img src={resize} alt="" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' onClick={() => navigate(`/property/${el.id}`)} />
-                                                <img src={loves} alt="love" className='w-5 sm:w-6 md:w-7 hover:scale-125 transition-transform duration-300 cursor-pointer' />
+                                                <img onClick={() => handleLoveClick(i, el.id)} src={loves[i] ? love_active : lovess} alt="" className="w-7 h-7 hover:scale-125 transition-transform duration-300 cursor-pointer" />
                                             </div>
                                         </div>
                                     </div>
