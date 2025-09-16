@@ -8,7 +8,7 @@ import Footer from './Footer'
 import logo from "../img/logo.png"
 import vector from "../img/Vector.png"
 
-function Contact() {
+function CustomerContact() {
     const [showProgress, setProgres] = useState(true)
     const [dark, setDarkMode] = useState(false)
     const [fullName, setName] = useState("")
@@ -41,7 +41,7 @@ function Contact() {
         setModal({ open: true, loading: true, success: false, error: "" })
 
         try {
-            await axios.post('http://localhost:6447/aloqa/create', {
+            await axios.post('https://fn3.fixoo.uz/api/contact', {
                 fullName,
                 phone,
                 message
@@ -86,12 +86,6 @@ function Contact() {
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/favourites">Favourites</Link>
-                                            </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/my_profile">My Profile</Link>
-                                            </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/new_property">Add New Properties</Link>
                                             </li>
                                             <button
                                                 onClick={exit}
@@ -142,4 +136,4 @@ function Contact() {
     )
 }
 
-export default Contact
+export default CustomerContact

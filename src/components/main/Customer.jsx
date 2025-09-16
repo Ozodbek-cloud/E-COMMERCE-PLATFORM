@@ -32,7 +32,7 @@ import { TestimonialCarousel } from './Comment'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-export default function Main() {
+export default function CustomerMain() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
     const [active, setActive] = useState(false)
@@ -45,7 +45,7 @@ export default function Main() {
         if (!token) {
             navigate("/reg");
         } else {
-            navigate("/main");
+            navigate("/customer_main");
         }
     }, [token, navigate]);
 
@@ -144,12 +144,6 @@ export default function Main() {
                                             </li>
                                             <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
                                                 <Link to="/favourites">Favourites</Link>
-                                            </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/my_properties">My Properties</Link>
-                                            </li>
-                                            <li className="px-5 py-3 hover:bg-gradient-to-r from-blue-50 to-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
-                                                <Link to="/new_property">Add New Properties</Link>
                                             </li>
                                             <button
                                                 onClick={exit}

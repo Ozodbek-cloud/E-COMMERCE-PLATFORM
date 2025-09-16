@@ -3,41 +3,14 @@ import Footer from "./Footer";
 import logo from "../img/logo.png"
 import vector from "../img/Vector.png"
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function MyProperties() {
     const [active, setActive] = useState(false)
-    const properties = [
-        {
-            id: 1,
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo",
-            date: "30 December 2022",
-            status: "Pending",
-            views: 5933,
-        },
-        {
-            id: 2,
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo",
-            date: "30 December 2022",
-            status: "Pending",
-            views: 5933,
-        },
-        {
-            id: 3,
-            title: "New Apartment Nice View",
-            address: "Quincy St, Brooklyn, NY, USA",
-            oldPrice: "$2,800/mo",
-            newPrice: "$7,500/mo",
-            date: "30 December 2022",
-            status: "Pending",
-            views: 5933,
-        },
-    ];
+    const [properties, setPro] = useState([])
+    useEffect(() => {
+        axios.get('http://localhost:6447/accommodation/get_all').then(data => setPro(data.data.data))
+    })
     function exit() {
         localStorage.removeItem("token")
         navigate("/reg")
@@ -102,10 +75,10 @@ export default function MyProperties() {
                     {properties.map((p) => (
                         <div
                             key={p.id}
-                            className="grid grid-cols-12 items-center border-b py-4 last:border-none"
+                            className="grid grid-cols-12 items-center border-b py-4  last:border-none"
                         >
                             <div className="col-span-5 flex gap-3">
-                                <div className="relative w-20 h-20 bg-gray-300 rounded-md flex items-center justify-center text-xs text-white">
+                                <div className="relative w-20 h-20  rounded-md flex items-center justify-center text-xs text-white" style={{ backgroundImage: `url(http://localhost:6447/uploads/house_images/${p.house_img})` }}>
                                     <span className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 rounded">
                                         FEATURED
                                     </span>
@@ -113,15 +86,15 @@ export default function MyProperties() {
                                 <div>
                                     <h3 className="font-semibold">{p.title}</h3>
                                     <p className="text-gray-500 text-sm">{p.address}</p>
-                                    <p className="text-gray-400 text-sm line-through">{p.oldPrice}</p>
-                                    <p className="text-lg font-bold">{p.newPrice}</p>
+                                    <p className="text-gray-400 text-sm line-through">{p.price}</p>
+                                    <p className="text-lg font-bold">{p.discount}</p>
                                 </div>
                                 <span className="self-start ml-auto text-xs bg-gray-800 text-white px-2 py-1 rounded mt-9 mr-10">
                                     FOR SALE
                                 </span>
                             </div>
 
-                            <div className="col-span-2 text-gray-600">{p.date}</div>
+                            <div className="col-span-2 text-gray-600">{p.build_year}</div>
                             <div className="col-span-2 text-gray-600">{p.status}</div>
                             <div className="col-span-1 text-gray-600">{p.views}</div>
 

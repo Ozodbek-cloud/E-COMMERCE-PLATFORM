@@ -8,19 +8,45 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 
 export default function InsidePropertyPage() {
-  const { id } = useParams();
+  const { ids } = useParams();
   const [houses, setHouses] = useState([])
   const [active, setActive] = useState(false);
+  const [contacts, setContact] = useState([])
+  const [emails, setEmail] = useState("")
+  const [text, setText] = useState("")
+  const [message, setMessage] = useState("")
   const navigate = useNavigate();
-
+  let userData = JSON.parse(localStorage.getItem("user"));
+   const { phone } = userData
+   const { id } = userData
   useEffect(() => {
     axios.get("http://localhost:6447/accommodation/get_all")
       .then(res => setHouses(res.data.data))
       .catch(err => console.error(err));
   }, []);
-  console.log(houses)
-  const house = houses.find(h => String(h.id) === String(id));
-  console.log(house)
+
+  useEffect(() => {
+    axios.get(`http://localhost:6447/accommodation/${ids}/one`)
+      .then(res => {
+        const acc = res.data?.data;
+        setContact(Array.isArray(acc?.Contacts) ? acc.Contacts : []);
+      })
+      .catch(err => console.error(err));
+  }, [ids]);
+
+  async function submit(e) {
+    e.preventDefault()
+   let data =  await axios.post(`http://localhost:6447/contacts/create`, {
+      email: emails,    
+      message: message, 
+      userId: id,      
+      accommodationId: ids
+    })
+    console.log(data)
+  }
+
+  console.log("Hello", contacts)
+  const house = houses.find(h => String(h.id) === String(ids));
   if (!house) return <p>Loading property...</p>;
 
   function exit() {
@@ -62,7 +88,7 @@ export default function InsidePropertyPage() {
                       <Link to="/favourites">Favourites</Link>
                     </li>
                     <li className="px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">
-                     <Link to="/my_profile">My Profile</Link>
+                      <Link to="/my_profile">My Profile</Link>
                     </li>
                     <li className="px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">
                       <Link to="/new_property">Add New Properties</Link>
@@ -81,9 +107,7 @@ export default function InsidePropertyPage() {
         </div>
       </section>
 
-      {/* Main Content */}
       <div className="max-w-6xl mx-auto p-6">
-        {/* Images */}
         <div className="grid grid-cols-3 gap-4">
           <img
             src={`http://localhost:6447/uploads/house_images/${house.img[0]}`}
@@ -108,9 +132,9 @@ export default function InsidePropertyPage() {
             <p className="text-gray-500 mt-1">{house.address}</p>
             <div className="flex flex-wrap gap-6 mt-3 text-sm text-gray-700">
               <span><b>Bedrooms:</b> {house.features?.beds ? 0 : "-"}</span>
-              <span><b>Bathrooms:</b> {house.features?.baths ? 0: "-"}</span>
-              <span><b>Garage:</b> {house.features?.parking ? 0: "-"}</span>
-              <span><b>Size:</b> {house.features?.size ? 0 :"-"}</span>
+              <span><b>Bathrooms:</b> {house.features?.baths ? 0 : "-"}</span>
+              <span><b>Garage:</b> {house.features?.parking ? 0 : "-"}</span>
+              <span><b>Size:</b> {house.features?.size ? 0 : "-"}</span>
               <span>🏗 Year Built: {house.build_year}</span>
             </div>
           </div>
@@ -120,7 +144,6 @@ export default function InsidePropertyPage() {
           </div>
         </div>
 
-        {/* Description */}
         <section className="mt-8">
           <h2 className="font-semibold text-xl mb-3">Description</h2>
           <p className="text-gray-700 leading-relaxed">
@@ -128,7 +151,6 @@ export default function InsidePropertyPage() {
           </p>
         </section>
 
-        {/* Documents */}
         <section className="mt-8">
           <h2 className="font-semibold text-xl mb-3">Documents</h2>
           <div className="flex flex-wrap gap-4">
@@ -160,7 +182,6 @@ export default function InsidePropertyPage() {
           </div>
         </section>
 
-        {/* Property Details & Features */}
         <div className="mt-10 grid grid-cols-2 gap-8">
           <div>
             <h2 className="font-semibold text-xl mb-3">Property Details</h2>
@@ -190,35 +211,14 @@ export default function InsidePropertyPage() {
             </div>
           </div>
         </div>
-
-        <div className="mt-10 bg-white p-6 rounded-xl shadow-lg">
-          <h2 className="font-semibold text-xl mb-4">Schedule A Tour</h2>
-          <div className="flex gap-4 mb-4">
-            <input type="date" className=" p-2 rounded w-1/2" />
-            <input type="time" className=" p-2 rounded w-1/2" defaultValue="10:00" />
-          </div>
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <input type="text" placeholder="Name" className=" p-2 rounded" />
-            <input type="text" placeholder="Phone" className=" p-2 rounded" />
-            <input type="email" placeholder="Email" className=" p-2 rounded" />
-          </div>
-          <textarea placeholder="Enter Your Message" className=" p-2 rounded w-full mb-4"></textarea>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-            Submit a tour request
-          </button>
-        </div>
-
-        {/* Reviews */}
         <div className="mt-10">
-          <h2 className="font-semibold text-xl mb-3">4.67 (14 reviews)</h2>
           <div className="grid grid-cols-2 gap-6">
-            {[1, 2].map((i) => (
+            {contacts.map((c, i) => (
               <div key={i} className="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition">
-                <p className="font-semibold">Jane Cooper</p>
-                <p className="text-xs text-gray-500">April 6, 2021 at 3:21 AM</p>
-                <p className="text-sm mt-2">
-                  Every single thing we tried with John was delicious! Found some awesome places...
-                </p>
+                <p className="font-semibold">{c.user?.firstName ?? "---"}</p>
+                <p className="text-sm mt-2">{c.user?.phone ?? "---"}</p>
+                <p className="text-xs text-gray-500">{c.date}</p>
+                <p className="text-sm mt-2">{c.message}</p>
               </div>
             ))}
           </div>
@@ -227,11 +227,11 @@ export default function InsidePropertyPage() {
         <div className="mt-10 bg-white p-6 rounded-xl shadow-lg">
           <h2 className="font-semibold text-xl mb-3">Write a Review</h2>
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <input type="text" placeholder="Name" className=" p-2 rounded" />
-            <input type="email" placeholder="Email" className=" p-2 rounded" />
+            <input type="text" onChange={e => setText(e.target.value)} placeholder="Name" className=" p-2 rounded" />
+            <input type="email" onChange={e => setEmail(e.target.value)} placeholder="Email" className=" p-2 rounded" />
           </div>
-          <textarea placeholder="Enter Your Message" className=" p-2 rounded w-full mb-4"></textarea>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          <textarea onChange={e => setMessage(e.target.value)} placeholder="Enter Your Message" className=" p-2 rounded w-full mb-4"></textarea>
+          <button onClick={submit} className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
             Send your review
           </button>
         </div>

@@ -26,13 +26,24 @@ function Login() {
             });
 
             const { token, data } = res.data;
-
             localStorage.setItem("token", token.accessToken);
             localStorage.setItem("id", data.id);
             localStorage.setItem("user", JSON.stringify(data));
-            
+            localStorage.setItem("user", JSON.stringify(data));
+
+            let userData = JSON.parse(localStorage.getItem("user"));
+            const { role } = userData;
+            console.log("Role:", role)
+
             setSuccessOpen(true);
-            navigate("/main");
+
+            if (role?.toLowerCase() === 'customer') {
+                navigate('/customer_main');
+            } else if (role?.toLowerCase() === 'user') {
+                navigate('/main');
+            }
+
+
         } catch (error) {
             console.error("Error:", error.response?.data || error.message);
             setErrorMessage(error.response?.data?.message || "Something went wrong");
