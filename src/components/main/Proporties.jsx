@@ -42,7 +42,7 @@ export default function Proporties() {
         navigate("/reg")
     }
     useEffect(() => {
-        axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
+        axios.get('https://e-commerce-backend-p8cw.onrender.com/accommodation/get_all').then(data => setHouses(data.data.data))
     })
 
     const [loves, setLoves] = useState(Array(houses.length).fill(true))
@@ -55,7 +55,7 @@ export default function Proporties() {
 
         try {
             if (newLoves[i]) {
-                let res = await axios.post("http://localhost:6447/likes/create", {
+                let res = await axios.post("https://e-commerce-backend-p8cw.onrender.com/likes/create", {
                     like: true,
                     userId: id,
                     accommodationId: houseId,
@@ -63,7 +63,7 @@ export default function Proporties() {
                 setIsFavourite(res.data.data.like)
                 setLikeId(res.data.data.id);
             } else {
-                await axios.delete(`http://localhost:6447/likes/${likesId}/delete`);
+                await axios.delete(`https://e-commerce-backend-p8cw.onrender.com/likes/${likesId}/delete`);
             }
         } catch (err) {
             console.error("Like error:", err.response?.data || err.message);
@@ -161,7 +161,7 @@ export default function Proporties() {
                                 <div key={i} className="px-2 sm:px-2 md:px-4">
                                     <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                         <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                            <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                            <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                         </div>
                                         <div className='absolute top-2 left-2 flex gap-2'>
                                             <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>

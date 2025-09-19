@@ -20,13 +20,13 @@ export default function InsidePropertyPage() {
    const { phone } = userData
    const { id } = userData
   useEffect(() => {
-    axios.get("http://localhost:6447/accommodation/get_all")
+    axios.get("https://e-commerce-backend-p8cw.onrender.com/accommodation/get_all")
       .then(res => setHouses(res.data.data))
       .catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:6447/accommodation/${ids}/one`)
+    axios.get(`https://e-commerce-backend-p8cw.onrender.com/accommodation/${ids}/one`)
       .then(res => {
         const acc = res.data?.data;
         setContact(Array.isArray(acc?.Contacts) ? acc.Contacts : []);
@@ -36,7 +36,7 @@ export default function InsidePropertyPage() {
 
   async function submit(e) {
     e.preventDefault()
-   let data =  await axios.post(`http://localhost:6447/contacts/create`, {
+   let data =  await axios.post(`https://e-commerce-backend-p8cw.onrender.com/contacts/create`, {
       email: emails,    
       message: message, 
       userId: id,      
@@ -110,15 +110,15 @@ export default function InsidePropertyPage() {
       <div className="max-w-6xl mx-auto p-6">
         <div className="grid grid-cols-3 gap-4">
           <img
-            src={`http://localhost:6447/uploads/house_images/${house.img[0]}`}
+            src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${house.img[0]}`}
             alt=""
             className="col-span-2 w-full h-96 object-cover rounded-xl shadow-lg"
           />
           <div className="grid grid-cols-2 gap-2">
-            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <img src={`http://localhost:6447/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
-            <div className="w-full h-48 bg-gray-200 flex items-center  justify-center rounded-lg shadow font-semibold text-gray-600 text-lg" style={{ backgroundImage: `url(http://localhost:6447/uploads/house_images/${house.img[0]})` }}>
+            <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${house.img[0]}`} alt="" className="w-full h-48 object-cover rounded-lg shadow" />
+            <div className="w-full h-48 bg-gray-200 flex items-center  justify-center rounded-lg shadow font-semibold text-gray-600 text-lg" style={{ backgroundImage: `url(https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${house.img[0]})` }}>
               +15
             </div>
           </div>

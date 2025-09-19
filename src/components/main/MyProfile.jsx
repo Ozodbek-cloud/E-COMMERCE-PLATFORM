@@ -15,7 +15,7 @@ function UpdateProfile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:6447/user/${id}`);
+        const res = await axios.get(`https://e-commerce-backend-p8cw.onrender.com/user/${id}`);
         const userData = res.data;
         setUser(userData);
         setFirstName(userData.firstName || "");
@@ -24,7 +24,7 @@ function UpdateProfile() {
         setPassword(userData.password || "");
         setAvatarPreview(
           userData.avatar
-            ? `http://localhost:6447/uploads/avatar/${userData.avatar}`
+            ? `https://e-commerce-backend-p8cw.onrender.com/uploads/avatar/${userData.avatar}`
             : ""
         );
       } catch (err) {
@@ -55,7 +55,7 @@ function UpdateProfile() {
       }
 
       const { data } = await axios.put(
-        `http://localhost:6447/user/${id}/update`,
+        `https://e-commerce-backend-p8cw.onrender.com/user/${id}/update`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

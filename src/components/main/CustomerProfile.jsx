@@ -101,7 +101,7 @@ export default function MyCustomerProfile() {
                     <div className="pt-4">
                         {tab === 'info' && (
                             <div className="flex flex-col items-center space-y-5 text-gray-700">
-                                <img src={`http://localhost:6447/uploads/avatar/${user.avatar}` || "default-avatar.png"} alt="Avatar" className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md" />
+                                <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/avatar/${user.avatar}` || "default-avatar.png"} alt="Avatar" className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md" />
                                 <div className="w-full max-w-md space-y-4 bg-gray-50 p-6 rounded-2xl">
                                     <div className="flex justify-between items-center border-b pb-2"><span className="font-semibold text-gray-600">First Name:</span><span className="text-gray-800">{user.firstName}</span></div>
                                     <div className="flex justify-between items-center border-b pb-2"><span className="font-semibold text-gray-600">Last Name:</span><span className="text-gray-800">{user.lastName}</span></div>
@@ -113,7 +113,7 @@ export default function MyCustomerProfile() {
                         {tab === 'update' && (
                             <form className="space-y-5 max-w-md mx-auto" onSubmit={handleSubmit}>
                                 <div className="flex justify-center">
-                                    <img src={`http://localhost:6447/uploads/avatar/${user.avatar}` || "default-avatar.png"} alt="Avatar" className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md mb-4" />
+                                    <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/avatar/${user.avatar}` || "default-avatar.png"} alt="Avatar" className="w-32 h-32 rounded-full object-cover border-4 border-[#0061DF] shadow-md mb-4" />
                                 </div>
                                 <div><label className="block text-gray-700 font-medium mb-2">First Name</label><input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" /></div>
                                 <div><label className="block text-gray-700 font-medium mb-2">Last Name</label><input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#0061DF] focus:border-transparent transition-all" /></div>

@@ -38,7 +38,7 @@ export default function Favourites() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:6447/likes/getAll')
+    axios.get('https://e-commerce-backend-p8cw.onrender.com/likes/getAll')
       .then(res => {
         setFavourites(res.data.data)
         setLoves(res.data.data.map(() => true))
@@ -53,7 +53,7 @@ export default function Favourites() {
 
     try {
       if (!newLoves[index]) {
-        await axios.delete(`http://localhost:6447/likes/${fav.id}/delete`)
+        await axios.delete(`https://e-commerce-backend-p8cw.onrender.com/likes/${fav.id}/delete`)
         setFavourites(prev => prev.filter(f => f.id !== fav.id))
       }
     } catch (err) {
@@ -118,7 +118,7 @@ export default function Favourites() {
                 <div key={i} className="px-4">
                   <div className='h-[500px] rounded-[3px] relative bg-white shadow-[0px_0px_6px_3px_rgba(0,_0,_0,_0.1)] w-full hover:shadow-[0px_0px_15px_7px_rgba(0,_97,_223,_0.3)] hover:-translate-y-2 transition-all duration-300'>
                     <div className='h-[250px] overflow-hidden rounded-t-[3px]'>
-                      <img src={`http://localhost:6447/uploads/house_images/${el.accommodation.house_img}`} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                      <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${el.accommodation.house_img}`} alt="" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div className='absolute top-3 flex gap-5 ml-2'>
                       <button className='text-[12px] rounded-[3px] bg-blue-600 text-white font-bold tracking-wide p-2 hover:bg-blue-800 transition-colors duration-300'>FEATURED</button>

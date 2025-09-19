@@ -50,10 +50,10 @@ export default function Main() {
     }, [token, navigate]);
 
     useEffect(() => {
-        axios.get('http://localhost:6447/accommodation/get_all').then(data => setHouses(data.data.data))
+        axios.get('https://e-commerce-backend-p8cw.onrender.com/accommodation/get_all').then(data => setHouses(data.data.data))
     },[])
     useEffect(() => {
-        axios.get('http://localhost:6447/category/all').then(data => setCategory(data.data.data))
+        axios.get('https://e-commerce-backend-p8cw.onrender.com/category/all').then(data => setCategory(data.data.data))
     },[])
 
      console.log(category)
@@ -72,7 +72,7 @@ export default function Main() {
     
         try {
             if (newLoves[i]) {
-                let res = await axios.post("http://localhost:6447/likes/create", {
+                let res = await axios.post("https://e-commerce-backend-p8cw.onrender.com/likes/create", {
                     like: true,
                     userId: id,
                     accommodationId: houseId,
@@ -80,7 +80,7 @@ export default function Main() {
                 setIsFavourite(res.data.data.like)     
                 setLikeId(res.data.data.id);
             } else {
-                await axios.delete(`http://localhost:6447/likes/${likesId}/delete`);
+                await axios.delete(`https://e-commerce-backend-p8cw.onrender.com/likes/${likesId}/delete`);
             }
         } catch (err) {
             console.error("Like error:", err.response?.data || err.message);
@@ -241,7 +241,7 @@ export default function Main() {
                                     <div key={i} className="px-2 sm:px-2 md:px-4">
                                         <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                             <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                                <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                                <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                             </div>
                                             <div className='absolute top-2 left-2 flex gap-2'>
                                                 <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>
@@ -363,11 +363,11 @@ export default function Main() {
                                 <div key={index} className="px-2">
                                     <div
                                         className='h-60 sm:h-72 md:h-80 flex flex-col items-center justify-center gap-10 bg-cover bg-center rounded-lg overflow-hidden relative group cursor-pointer transition-transform duration-300 hover:scale-105'
-                                        style={{ backgroundImage: `url(http://localhost:6447/uploads/images/${el.img})` }}
+                                        style={{ backgroundImage: `url(https://e-commerce-backend-p8cw.onrender.com/uploads/images/${el.img})` }}
                                     >
                                         <div className='absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300'></div>
                                         <img
-                                            src={`http://localhost:6447/uploads/icon_imges/${el.icon_img}`}
+                                            src={`https://e-commerce-backend-p8cw.onrender.com/uploads/icon_imges/${el.icon_img}`}
                                             alt={el.name}
                                             className='z-10 w-16 sm:w-20 md:w-24 group-hover:scale-110 transition-transform duration-300'
                                         />
@@ -408,7 +408,7 @@ export default function Main() {
                                     <div key={i} className="px-2 sm:px-2 md:px-4">
                                         <div className='bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-transform duration-300 relative flex flex-col w-full'>
                                             <div className='h-48 sm:h-56 md:h-60 overflow-hidden rounded-t-lg'>
-                                                <img src={`http://localhost:6447/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
+                                                <img src={`https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${el.house_img}`} alt="" className='w-full h-full object-cover hover:scale-105 transition-transform duration-500' />
                                             </div>
                                             <div className='absolute top-2 left-2 flex gap-2'>
                                                 <span className='text-xs sm:text-sm bg-blue-600 text-white px-2 py-1 rounded font-semibold'>FEATURED</span>

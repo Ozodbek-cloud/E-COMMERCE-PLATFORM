@@ -41,7 +41,7 @@ function Contact() {
         setModal({ open: true, loading: true, success: false, error: "" })
 
         try {
-            await axios.post('http://localhost:6447/aloqa/create', {
+            await axios.post('https://e-commerce-backend-p8cw.onrender.com/aloqa/create', {
                 fullName,
                 phone,
                 message

@@ -9,7 +9,7 @@ export default function MyProperties() {
     const [active, setActive] = useState(false)
     const [properties, setPro] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:6447/accommodation/get_all').then(data => setPro(data.data.data))
+        axios.get('https://e-commerce-backend-p8cw.onrender.com/accommodation/get_all').then(data => setPro(data.data.data))
     })
     function exit() {
         localStorage.removeItem("token")
@@ -78,7 +78,7 @@ export default function MyProperties() {
                             className="grid grid-cols-12 items-center border-b py-4  last:border-none"
                         >
                             <div className="col-span-5 flex gap-3">
-                                <div className="relative w-20 h-20  rounded-md flex items-center justify-center text-xs text-white" style={{ backgroundImage: `url(http://localhost:6447/uploads/house_images/${p.house_img})` }}>
+                                <div className="relative w-20 h-20  rounded-md flex items-center justify-center text-xs text-white" style={{ backgroundImage: `url(https://e-commerce-backend-p8cw.onrender.com/uploads/house_images/${p.house_img})` }}>
                                     <span className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 rounded">
                                         FEATURED
                                     </span>
