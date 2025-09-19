@@ -20,7 +20,7 @@ function Login() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.post('http://localhost:6447/auth/login', {
+            let res = await axios.post('https://e-commerce-backend-p8cw.onrender.com/auth/login', {
                 email,
                 password: pass
             });

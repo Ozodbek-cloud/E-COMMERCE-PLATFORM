@@ -30,7 +30,7 @@ const Register = () => {
         try {
             console.log("Registration data:", formData);
 
-            await axios.post('http://localhost:6447/auth/register', formData);
+            await axios.post('https://e-commerce-backend-p8cw.onrender.com/auth/register', formData);
 
             setSuccessOpen(true);
             setTimeout(() => {
